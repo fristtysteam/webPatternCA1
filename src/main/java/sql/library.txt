@@ -19,6 +19,7 @@ CREATE TABLE books(
 CREATE TABLE userbooks(
 	userID int NOT NULL,
     bookID int NOT NULL,
+    borrowDate DATETIME,
     dueDate DATETIME,
     returned int,
     foreign key(userID) REFERENCES users(userID),
