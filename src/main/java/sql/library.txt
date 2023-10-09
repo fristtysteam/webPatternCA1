@@ -1,0 +1,28 @@
+CREATE TABLE users(
+	userID int NOT NULL AUTO_INCREMENT,
+    userName varchar(255),
+    password varchar(255),
+    email varchar(255),
+    primary key(userID)
+);
+
+CREATE TABLE books(
+	bookID int NOT NULL AUTO_INCREMENT,
+    bookName varchar(255),
+    description varchar(255),
+    quantity int,
+    primary key(bookID)
+);
+
+CREATE TABLE userbooks(
+	userID int NOT NULL,
+    bookID int NOT NULL,
+    dueDate DATETIME,
+    returned int,
+    foreign key(userID) REFERENCES users(userID),
+    foreign key(bookID) REFERENCES books(bookID)
+);
+
+INSERT INTO users(userName, password, email) VALUES ("jerry", "aaa", "jerry@gmail.com");
+insert into books(bookName, description, quantity) VALUES ("one piece", "it is a manga of pirates", 1000);
+INSERT INTO userbooks VALUES(1, 1, "2023-11-11 13:23:44", 0);
