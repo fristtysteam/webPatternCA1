@@ -29,7 +29,8 @@ CREATE TABLE userBooks(
 
 CREATE TABLE genres(
     genreID int not null AUTO_INCREMENT,
-    genreName varchar(40)
+    genreName varchar(40),
+    primary key(genreID)
 );
 
 CREATE TABLE bookGenres(
