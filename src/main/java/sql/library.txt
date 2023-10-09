@@ -1,31 +1,44 @@
 CREATE TABLE users(
 	userID int NOT NULL AUTO_INCREMENT,
-    userName varchar(255),
-    password varchar(255),
-    email varchar(255),
+    userName varchar(50) NOT NULL UNIQUE,
+    email varchar(255) NOT NULL UNIQUE,
+    password varchar(255) NOT NULL,
+    address varchar(80),
+    phone varchar(20),
     primary key(userID)
 );
 
 CREATE TABLE books(
 	bookID int NOT NULL AUTO_INCREMENT,
-    bookName varchar(255),
-    author varchar(255),
-    genre varchar(255),
+    bookName varchar(255) NOT NULL,
+    author varchar(255) NOT NULL,
     description varchar(255),
-    quantity int,
+    quantity int NOT NULL,
     primary key(bookID)
 );
 
-CREATE TABLE userbooks(
+CREATE TABLE userBooks(
 	userID int NOT NULL,
     bookID int NOT NULL,
-    borrowDate DATETIME,
-    dueDate DATETIME,
-    returned int,
+    borrowDate DATETIME NOT NULL,
+    dueDate DATETIME NOT NULL,
+    returnedDate DATETIME,
     foreign key(userID) REFERENCES users(userID),
     foreign key(bookID) REFERENCES books(bookID)
 );
 
+CREATE TABLE genres(
+    genreID int not null AUTO_INCREMENT,
+    genreName varchar(40)
+);
+
+CREATE TABLE bookGenres(
+    bookID int NOT NULL,
+    genreID int NOT NULL,
+    FOREIGN KEY(bookID) REFERENCES books(bookID),
+    FOREIGN KEY(genreID) REFERENCES genres(genreID)
+);
+
 INSERT INTO users(userName, password, email) VALUES ("jerry", "aaa", "jerry@gmail.com");
-insert into books(bookName, description, quantity) VALUES ("one piece", "it is a manga of pirates", 1000);
+insert into books(bookName, author, description, quantity) VALUES ("one piece", "oda", "it is a manga of pirates", 1000);
 INSERT INTO userbooks VALUES(1, 1, "2023-11-11 13:23:44", 0);
