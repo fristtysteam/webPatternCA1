@@ -42,4 +42,4 @@ CREATE TABLE bookGenres(
 
 INSERT INTO users(userName, password, email) VALUES ("jerry", "aaa", "jerry@gmail.com");
 insert into books(bookName, author, description, quantity) VALUES ("one piece", "oda", "it is a manga of pirates", 1000);
-INSERT INTO userbooks VALUES(1, 1, "2023-11-11 13:23:44", 0);
+INSERT INTO userbooks VALUES(1, 1, "2023-11-11 13:23:44", "2023-12-11 13:23:44", "2023-11-12 13:23:44");
