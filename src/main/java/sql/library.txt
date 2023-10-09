@@ -9,6 +9,8 @@ CREATE TABLE users(
 CREATE TABLE books(
 	bookID int NOT NULL AUTO_INCREMENT,
     bookName varchar(255),
+    author varchar(255),
+    genre varchar(255),
     description varchar(255),
     quantity int,
     primary key(bookID)
