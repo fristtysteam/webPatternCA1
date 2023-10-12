@@ -29,7 +29,7 @@ CREATE TABLE userBooks(
 
 CREATE TABLE genres(
     genreID int not null AUTO_INCREMENT,
-    genreName varchar(40),
+    genreName varchar(40) unique,
     primary key(genreID)
 );
 
@@ -41,5 +41,26 @@ CREATE TABLE bookGenres(
 );
 
 INSERT INTO users(userName, password, email) VALUES ("jerry", "aaa", "jerry@gmail.com");
-insert into books(bookName, author, description, quantity) VALUES ("one piece", "oda", "it is a manga of pirates", 1000);
+INSERT INTO users(userName, password, email, address, phone) VALUES ("bill", "aaacsac", "bill@gmail.com", "wall", "021321312");
 INSERT INTO userbooks VALUES(1, 1, "2023-11-11 13:23:44", "2023-12-11 13:23:44", "2023-11-12 13:23:44");
+
+insert into books(bookName, author, description, quantity) VALUES ("one piece", "oda", "it is a manga of pirates", 1000);
+insert into books(bookName, author, description, quantity) VALUES ("gintama", "Hideaki Sorachi", "it is a manga of gintama", 20);
+insert into books(bookName, author, description, quantity) VALUES ("naruto", "Masashi Kishimoto", "it is a manga of ninjas", 5);
+insert into books(bookName, author, description, quantity) VALUES ("Mieruko-chan", "Tomoki Izumi", "horror manga with ability to see ghost", 4);
+insert into books(bookName, author, description, quantity) VALUES ("blue lock", "yusuke nomura", "hardcore soccer", 66);
+
+insert into genres (genreName) VALUES ("comedy");
+insert into genres (genreName) VALUES ("action");
+insert into genres (genreName) VALUES ("horror");
+insert into genres (genreName) VALUES ("romance");
+insert into genres (genreName) VALUES ("sci-fi");
+
+insert into bookGenres VALUES(1, 1);
+insert into bookGenres VALUES(1, 2);
+insert into bookGenres VALUES(2, 1);
+insert into bookGenres VALUES(2, 2);
+insert into bookGenres VALUES(3, 2);
+insert into bookGenres VALUES(4, 3);
+insert into bookGenres VALUES(4, 1);
+insert into bookGenres VALUES(5, 2);
