@@ -1,5 +1,7 @@
 package dao;
 
+import business.Book;
+
 import java.util.List;
 
 public class BookDao extends Dao implements BookDaoInterface{

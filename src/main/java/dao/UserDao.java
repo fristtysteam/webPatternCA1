@@ -2,6 +2,7 @@ package dao;
 
 import java.sql.SQLException;
 import java.sql.Statement;
+import business.User;
 
 public class UserDao extends Dao implements UserDaoInterface{
     public UserDao(String dbName) {
