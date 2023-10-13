@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BookDao extends Dao implements BookDaoInterface{
+    public BookDao(String dbName) {
+        super(dbName);
+    }
+
     @Override
     public List<Book> getAllBooks() {
         List<Book> books = new ArrayList<>();
