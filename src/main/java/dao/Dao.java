@@ -12,6 +12,8 @@ public class Dao {
         this.dbName = dbName;
     }
 
+    public Dao(){}
+
     /**
      * get the connection to the database
      * @return connection
