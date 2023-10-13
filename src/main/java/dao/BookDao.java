@@ -71,4 +71,29 @@ public class BookDao extends Dao implements BookDaoInterface{
 
         return null;
     }
+
+    @Override
+    public int updateBookQuantity(int bookID, boolean increase) {
+        String query = "UPDATE books SET quantity = quantity - 1 WHERE bookID = ?";
+        int rowsAffected = 0;
+
+        try{
+            if(increase){
+                query = "UPDATE books SET quantity = quantity + 1 WHERE bookID = ?";
+            }
+            con = getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, bookID);
+            rowsAffected = ps.executeUpdate();
+        }
+        catch(SQLException se){
+            System.out.println(se.getMessage());
+            System.out.println("something went wrong");
+        }
+        finally {
+            freeConnection();
+        }
+
+        return rowsAffected;
+    }
 }

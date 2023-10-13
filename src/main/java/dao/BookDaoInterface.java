@@ -18,4 +18,12 @@ public interface BookDaoInterface {
      */
     public Book getBookByID(int bookID);
 
+    /**
+     * update the quantity in the book
+     * @param bookID the bookID
+     * @param increase boolean, if true then quantity +1, otherwise -1
+     * @return rows affected
+     */
+    public int updateBookQuantity(int bookID, boolean increase);
+
 }
