@@ -51,4 +51,11 @@ public interface UserBookDaoInterface {
      * @return rows affected
      */
     public int deleteUserBookByUserID(int userID);
+
+    /**
+     * check if the book is returned late or not
+     * @param bookID the bookID
+     * @return true or false
+     */
+    public boolean checkIfLate(int bookID);
 }

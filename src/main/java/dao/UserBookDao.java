@@ -3,6 +3,7 @@ package dao;
 import business.Book;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,8 +28,6 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
             while(rs.next()){
                 books.add(bookDao.getBookByID(rs.getInt("bookID")));
             }
-
-            return books;
         }
         catch(SQLException se){
             System.out.println(se.getMessage());
@@ -38,7 +37,7 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
             freeConnection();
         }
 
-        return null;
+        return books;
     }
 
     @Override
@@ -56,8 +55,6 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
             while(rs.next()){
                 books.add(bookDao.getBookByID(rs.getInt("bookID")));
             }
-
-            return books;
         }
         catch(SQLException se){
             System.out.println(se.getMessage());
@@ -67,33 +64,79 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
             freeConnection();
         }
 
-        return null;
+        return books;
     }
 
     @Override
     public int borrowBook(int userID, int bookID) {
         BookDao bookDao = new BookDao("library");
         Book book = bookDao.getBookByID(bookID);
+        int rowsAffected = 0;
 
-        if(book.getQuantity() - 1 < 1){
-            return 0;
+        //fail fast methods
+        if(book.getQuantity() - 1 < 1 || checkForDuplicateBorrow(userID, bookID)){
+            return rowsAffected;
         }
 
         LocalDateTime borrowDate = LocalDateTime.now();
         LocalDateTime dueDate = LocalDateTime.now().plusWeeks(2);
+        String query = "INSERT INTO userbooks (userID, bookID, borrowDate, dueDate) VALUES (?, ?, ?, ?)";
 
-        return 0;
+        try{
+            con = getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, userID);
+            ps.setInt(2, bookID);
+            ps.setTimestamp(3, Timestamp.valueOf(borrowDate));
+            ps.setTimestamp(4, Timestamp.valueOf(dueDate));
+
+            rowsAffected = ps.executeUpdate();
+            bookDao.updateBookQuantity(bookID, false);
+        }
+        catch(SQLException se){
+            System.out.println(se.getMessage());
+            System.out.println("something went wrong");
+        }
+        finally {
+            freeConnection();
+        }
+
+
+        return rowsAffected;
     }
 
     @Override
     public int returnBook(int userID, int bookID) {
-        return 0;
+        BookDao bookDao = new BookDao("library");
+        String query = "UPDATE userbooks SET returnedDate = ? WHERE userID = ? AND bookID = ?";
+        int rowsAffected = 0;
+
+        try{
+            con = getConnection();
+            ps = con.prepareStatement(query);
+            ps.setTimestamp(1, Timestamp.valueOf(LocalDateTime.now()));
+            ps.setInt(2, userID);
+            ps.setInt(3, bookID);
+
+            rowsAffected = ps.executeUpdate();
+            bookDao.updateBookQuantity(bookID, true);
+        }
+        catch(SQLException se){
+            System.out.println(se.getMessage());
+            System.out.println("something went wrong");
+        }
+        finally {
+            freeConnection();
+        }
+
+        return rowsAffected;
     }
 
     @Override
     public boolean checkForDuplicateBorrow(int userID, int bookID) {
         BookDao bookDao = new BookDao("library");
-        int count = 0;
+        int count;
+        boolean flag = false;
 
         try{
             String query = "SELECT count(*) FROM userbooks WHERE userID = ? AND bookID = ?";
@@ -105,7 +148,7 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
             if(rs.next()){
                 count = rs.getInt(1);
                 if(count > 1){
-                    return true;
+                    flag = true;
                 }
             }
 
@@ -118,11 +161,16 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
             freeConnection();
         }
 
-        return false;
+        return flag;
     }
 
     @Override
     public int deleteUserBookByUserID(int userID) {
         return 0;
+    }
+
+    @Override
+    public boolean checkIfLate(int bookID) {
+        return false;
     }
 }
