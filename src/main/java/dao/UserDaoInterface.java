@@ -1,5 +1,7 @@
 package dao;
 
+import business.User;
+
 public interface UserDaoInterface {
 
     /**
