@@ -76,7 +76,7 @@ public class User{
         if (this == o) return true;
         if (!(o instanceof User)) return false;
         User user = (User) o;
-        return userID == user.userID && Objects.equals(userName, user.userName) && Objects.equals(email, user.email) && Objects.equals(password, user.password) && Objects.equals(address, user.address) && Objects.equals(phone, user.phone);
+        return getUserID() == user.getUserID();
     }
 
     @Override
