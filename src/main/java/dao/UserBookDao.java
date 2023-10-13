@@ -3,6 +3,7 @@ package dao;
 import business.Book;
 
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,6 +72,16 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
 
     @Override
     public int borrowBook(int userID, int bookID) {
+        BookDao bookDao = new BookDao("library");
+        Book book = bookDao.getBookByID(bookID);
+
+        if(book.getQuantity() - 1 < 1){
+            return 0;
+        }
+
+        LocalDateTime borrowDate = LocalDateTime.now();
+        LocalDateTime dueDate = LocalDateTime.now().plusWeeks(2);
+
         return 0;
     }
 
@@ -80,8 +91,34 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
     }
 
     @Override
-    public Book checkForDuplicateBorrow(int userID, int bookID) {
-        return null;
+    public boolean checkForDuplicateBorrow(int userID, int bookID) {
+        BookDao bookDao = new BookDao("library");
+        int count = 0;
+
+        try{
+            String query = "SELECT count(*) FROM userbooks WHERE userID = ? AND bookID = ?";
+            con = getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, userID);
+            rs = ps.executeQuery();
+
+            if(rs.next()){
+                count = rs.getInt(1);
+                if(count > 1){
+                    return true;
+                }
+            }
+
+        }
+        catch(SQLException se){
+            System.out.println(se.getMessage());
+            System.out.println("something went wrong");
+        }
+        finally {
+            freeConnection();
+        }
+
+        return false;
     }
 
     @Override

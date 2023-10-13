@@ -30,7 +30,6 @@ public class BookDao extends Dao implements BookDaoInterface{
                 ));
             }
 
-            return books;
         }
         catch(SQLException se){
             System.out.println(se.getMessage());
@@ -40,7 +39,7 @@ public class BookDao extends Dao implements BookDaoInterface{
             freeConnection();
         }
 
-        return null;
+        return books;
     }
 
     @Override
@@ -62,8 +61,6 @@ public class BookDao extends Dao implements BookDaoInterface{
                         rs.getInt("quantity")
                 );
             }
-
-            return book;
         }
         catch(SQLException se){
             System.out.println(se.getMessage());
@@ -73,7 +70,7 @@ public class BookDao extends Dao implements BookDaoInterface{
             freeConnection();
         }
 
-        return null;
+        return book;
     }
 
     @Override

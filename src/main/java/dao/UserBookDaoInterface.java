@@ -41,9 +41,9 @@ public interface UserBookDaoInterface {
      * check for a duplicate borrow, you can only borrow one book at a time
      * @param userID the userID
      * @param bookID the bookID
-     * @return a book, but if none
+     * @return true if there are duplicates, false otherwise
      */
-    public Book checkForDuplicateBorrow(int userID, int bookID);
+    public boolean checkForDuplicateBorrow(int userID, int bookID);
 
     /**
      * deletes all records by the userID
