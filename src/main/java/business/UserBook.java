@@ -1,8 +1,11 @@
 package business;
 
+
+import java.time.LocalDateTime;
+
 public class UserBook{
     private User userID;
-    private Book bookID
+    private Book bookID;
     private LocalDateTime borrowDate;
     private LocalDateTime dueDate;
     private LocalDateTime returnedDate;
@@ -57,21 +60,20 @@ public class UserBook{
     public void setReturnedDate(LocalDateTime returnedDate) {
         this.returnedDate = returnedDate;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         UserBook userBook = (UserBook) o;
-        return Objects.equals(userID, userBook.userID) &&
-                Objects.equals(bookID, userBook.bookID) &&
-                Objects.equals(borrowDate, userBook.borrowDate) &&
-                Objects.equals(dueDate, userBook.dueDate) &&
-                Objects.equals(returnedDate, userBook.returnedDate);
+
+        return userID.equals(userBook.userID);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userID, bookID, borrowDate, dueDate, returnedDate);
+        return userID.hashCode();
     }
 
     @Override
