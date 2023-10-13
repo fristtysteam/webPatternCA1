@@ -37,7 +37,7 @@ public class BookGenre{
         if (this == o) return true;
         if (!(o instanceof BookGenre)) return false;
         BookGenre bookGenre = (BookGenre) o;
-        return Objects.equals(getBookId(), bookGenre.getBookId()) && Objects.equals(getGenreID(), bookGenre.getGenreID());
+        return Objects.equals(getBookId(), bookGenre.getBookId());
     }
 
     @Override

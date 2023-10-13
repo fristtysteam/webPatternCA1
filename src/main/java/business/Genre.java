@@ -37,7 +37,7 @@ public class Genre{
         if (this == o) return true;
         if (!(o instanceof Genre)) return false;
         Genre genre = (Genre) o;
-        return getGenreID() == genre.getGenreID() && Objects.equals(getGenreName(), genre.getGenreName());
+        return getGenreID() == genre.getGenreID();
     }
 
     @Override

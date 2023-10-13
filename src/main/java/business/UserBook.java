@@ -1,5 +1,7 @@
 package business;
 
+import java.util.Objects;
+
 public class UserBook{
     private User userID;
     private Book bookID
@@ -57,16 +59,13 @@ public class UserBook{
     public void setReturnedDate(LocalDateTime returnedDate) {
         this.returnedDate = returnedDate;
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof UserBook)) return false;
         UserBook userBook = (UserBook) o;
-        return Objects.equals(userID, userBook.userID) &&
-                Objects.equals(bookID, userBook.bookID) &&
-                Objects.equals(borrowDate, userBook.borrowDate) &&
-                Objects.equals(dueDate, userBook.dueDate) &&
-                Objects.equals(returnedDate, userBook.returnedDate);
+        return Objects.equals(getUserID(), userBook.getUserID());
     }
 
     @Override
