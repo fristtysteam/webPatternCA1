@@ -3,6 +3,7 @@ package dao;
 import business.Book;
 
 import java.sql.SQLException;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -134,7 +135,7 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
 
     @Override
     public boolean checkForDuplicateBorrow(int userID, int bookID) {
-        BookDao bookDao = new BookDao("library");
+        //BookDao bookDao = new BookDao("library");
         int count;
         boolean flag = false;
 
@@ -165,12 +166,65 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
     }
 
     @Override
-    public int deleteUserBookByUserID(int userID) {
-        return 0;
+    public int deleteUserBookByUserIDAndBookID(int userID, int bookID) {
+        int rowsAffected = 0;
+
+        try{
+            String query = "DELETE FROM userbooks WHERE userID = ? AND bookID = ?";
+            con = getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, userID);
+            ps.setInt(2, bookID);
+            rowsAffected = ps.executeUpdate();
+
+
+        }
+        catch(SQLException se){
+            System.out.println(se.getMessage());
+            System.out.println("something went wrong");
+        }
+        finally {
+            freeConnection();
+        }
+
+        return rowsAffected;
     }
 
     @Override
-    public boolean checkIfLate(int bookID) {
-        return false;
+    public boolean checkIfLate(int userID, int bookID) {
+        boolean flag = false;
+
+        try{
+            String query = "SELECT * FROM userbooks WHERE userID = ? AND bookID = ?";
+            con = getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, userID);
+            rs = ps.executeQuery();
+
+            if(rs.next()){
+                Timestamp due = rs.getTimestamp("dueDate");
+                Timestamp returned = rs.getTimestamp("returnDate");
+
+                LocalDateTime dueDate = due.toLocalDateTime();
+                LocalDateTime returnedDate = returned.toLocalDateTime();
+
+                if(dueDate.isBefore(returnedDate)){
+                    flag = false;
+                }
+                else{
+                    flag = true;
+                }
+            }
+
+        }
+        catch(SQLException se){
+            System.out.println(se.getMessage());
+            System.out.println("something went wrong");
+        }
+        finally {
+            freeConnection();
+        }
+
+        return flag;
     }
 }

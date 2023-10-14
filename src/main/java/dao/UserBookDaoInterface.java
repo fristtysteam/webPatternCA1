@@ -48,14 +48,16 @@ public interface UserBookDaoInterface {
     /**
      * deletes all records by the userID
      * @param userID the userID
+     * @param bookID the bookID
      * @return rows affected
      */
-    public int deleteUserBookByUserID(int userID);
+    public int deleteUserBookByUserIDAndBookID(int userID, int bookID);
 
     /**
      * check if the book is returned late or not
+     * @param userID the userID
      * @param bookID the bookID
      * @return true or false
      */
-    public boolean checkIfLate(int bookID);
+    public boolean checkIfLate(int userID, int bookID);
 }
