@@ -10,23 +10,15 @@ public interface BookGenreDaoInterface {
     /**
      * get genre by bookID
      * @param bookID the bookID
-     * @return the genre
+     * @return the genre list
      */
-    public Genre getGenreByBookID(int bookID);
+    public List<Genre> getGenreByBookID(int bookID);
 
     /**
      * get the books by genre
-     * @param genre the genre name
+     * @param genreName the genre name
      * @return a list of books
      */
-    public List<Book> getBooksByGenre(String genre);
-
-    /**
-     * add a genre to a book
-     * @param bookID the bookID
-     * @param genreID the genreID
-     * @return rows affected
-     */
-    public int addGenreToBook(int bookID, int genreID);
+    public List<Book> getBooksByGenre(String genreName);
 
 }

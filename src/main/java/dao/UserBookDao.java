@@ -99,7 +99,7 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
             System.out.println("something went wrong");
         }
         finally {
-            freeConnection();
+            freeConnectionUpdate();
         }
 
 
@@ -127,7 +127,7 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
             System.out.println("something went wrong");
         }
         finally {
-            freeConnection();
+            freeConnectionUpdate();
         }
 
         return rowsAffected;
@@ -184,7 +184,7 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
             System.out.println("something went wrong");
         }
         finally {
-            freeConnection();
+            freeConnectionUpdate();
         }
 
         return rowsAffected;

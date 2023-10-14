@@ -92,7 +92,7 @@ public class BookDao extends Dao implements BookDaoInterface{
             System.out.println("something went wrong");
         }
         finally {
-            freeConnection();
+            freeConnectionUpdate();
         }
 
         return rowsAffected;
