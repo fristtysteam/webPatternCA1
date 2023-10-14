@@ -7,7 +7,7 @@ class BookDaoTest {
 
     @Test
     void getAllBooks() {
-        System.out.println("asds");
+        System.out.println("test");
     }
 
     @Test
