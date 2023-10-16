@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2023 at 05:08 PM
+-- Generation Time: Oct 16, 2023 at 05:35 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.0.28
 
@@ -86,8 +86,8 @@ CREATE TABLE `genres` (
 --
 
 INSERT INTO `genres` (`genreID`, `genreName`) VALUES
-                                                  (1, 'comedy'),
                                                   (2, 'action'),
+                                                  (1, 'comedy'),
                                                   (3, 'horror'),
                                                   (4, 'romance'),
                                                   (5, 'sci-fi');
@@ -128,7 +128,7 @@ CREATE TABLE `users` (
                          `password` varchar(255) NOT NULL,
                          `address` varchar(80) DEFAULT NULL,
                          `phone` varchar(20) DEFAULT NULL,
-                         `fees` int(11) DEFAULT NULL,
+                         `fees` int(11) NOT NULL,
                          `userType` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

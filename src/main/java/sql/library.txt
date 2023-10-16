@@ -5,6 +5,8 @@ CREATE TABLE users(
     password varchar(255) NOT NULL,
     address varchar(80),
     phone varchar(20),
+    fees int not null,
+    userType int not null,
     primary key(userID)
 );
 
@@ -40,14 +42,10 @@ CREATE TABLE bookGenres(
     FOREIGN KEY(genreID) REFERENCES genres(genreID)
 );
 
-ALTER TABLE users ADD fees int;
-ALTER TABLE users ADD userType int not null;
-
 INSERT INTO users(userName, password, email) VALUES ("jerry", "aaa", "jerry@gmail.com");
 INSERT INTO users(userName, password, email, address, phone) VALUES ("bill", "aaacsac", "bill@gmail.com", "wall", "021321312");
 INSERT INTO users(userName, password, email, address, phone, fees, userType) VALUES ("admin", "aadqffewf", "admin@gmail.com",
  "wall", "021321312", 0, 1);
-INSERT INTO userbooks VALUES(1, 1, "2023-11-11 13:23:44", "2023-12-11 13:23:44", "2023-11-12 13:23:44");
 
 insert into books(bookName, author, description, quantity) VALUES ("one piece", "oda", "it is a manga of pirates", 1000);
 insert into books(bookName, author, description, quantity) VALUES ("gintama", "Hideaki Sorachi", "it is a manga of gintama", 20);
@@ -69,3 +67,5 @@ insert into bookGenres VALUES(3, 2);
 insert into bookGenres VALUES(4, 3);
 insert into bookGenres VALUES(4, 1);
 insert into bookGenres VALUES(5, 2);
+
+INSERT INTO userbooks VALUES(1, 1, "2023-11-11 13:23:44", "2023-12-11 13:23:44", "2023-11-12 13:23:44");
