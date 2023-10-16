@@ -64,14 +64,16 @@ public class Book{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Book)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
+
         Book book = (Book) o;
-        return getBookID() == book.getBookID();
+
+        return bookID == book.bookID;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getBookID(), getBookName(), getAuthor(), getDescription(), getQuantity());
+        return bookID;
     }
 
     @Override

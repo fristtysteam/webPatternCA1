@@ -35,14 +35,16 @@ public class Genre{
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Genre)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
+
         Genre genre = (Genre) o;
-        return getGenreID() == genre.getGenreID();
+
+        return genreID == genre.genreID;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getGenreID(), getGenreName());
+        return genreID;
     }
 
     @Override

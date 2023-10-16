@@ -68,12 +68,15 @@ public class UserBook{
 
         UserBook userBook = (UserBook) o;
 
-        return userID.equals(userBook.userID);
+        if (!userID.equals(userBook.userID)) return false;
+        return bookID.equals(userBook.bookID);
     }
 
     @Override
     public int hashCode() {
-        return userID.hashCode();
+        int result = userID.hashCode();
+        result = 31 * result + bookID.hashCode();
+        return result;
     }
 
     @Override

@@ -10,14 +10,18 @@ public class User{
     private String password;
     private String address;
     private String phone;
+    private int fees;
+    private int userType;
 
-    public User(int userID, String userName, String email, String password, String address, String phone) {
+    public User(int userID, String userName, String email, String password, String address, String phone, int fees, int userType) {
         this.userID = userID;
         this.userName = userName;
         this.email = email;
         this.password = password;
         this.address = address;
         this.phone = phone;
+        this.fees = fees;
+        this.userType = userType;
     }
 
     public User() {
@@ -71,17 +75,35 @@ public class User{
         this.phone = phone;
     }
 
+    public int getFees() {
+        return fees;
+    }
+
+    public void setFees(int fees) {
+        this.fees = fees;
+    }
+
+    public int getUserType() {
+        return userType;
+    }
+
+    public void setUserType(int userType) {
+        this.userType = userType;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
+
         User user = (User) o;
-        return getUserID() == user.getUserID();
+
+        return userID == user.userID;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(userID, userName, email, password, address, phone);
+        return userID;
     }
 
     @Override
