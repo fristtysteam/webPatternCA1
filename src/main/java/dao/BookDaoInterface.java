@@ -1,7 +1,6 @@
 package dao;
 
 import java.util.List;
-import business.Book;
 
 public interface BookDaoInterface {
 

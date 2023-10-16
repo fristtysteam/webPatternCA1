@@ -1,7 +1,5 @@
 package dao;
 
-import business.Book;
-
 import java.util.List;
 
 public interface UserBookDaoInterface {

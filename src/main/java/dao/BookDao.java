@@ -1,7 +1,5 @@
 package dao;
 
-import business.Book;
-
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
