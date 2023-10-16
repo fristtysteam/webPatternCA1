@@ -19,8 +19,8 @@ public class UserDao extends Dao implements UserDaoInterface{
             con = getConnection();
             ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, username);
-            ps.setString(2, password);
-            ps.setString(3, email);
+            ps.setString(2, email);
+            ps.setString(3, password);
             ps.setString(4, address);
             ps.setString(5, phone);
 
