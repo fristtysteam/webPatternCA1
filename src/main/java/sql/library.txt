@@ -40,8 +40,13 @@ CREATE TABLE bookGenres(
     FOREIGN KEY(genreID) REFERENCES genres(genreID)
 );
 
+ALTER TABLE users ADD fees int;
+ALTER TABLE users ADD userType int not null;
+
 INSERT INTO users(userName, password, email) VALUES ("jerry", "aaa", "jerry@gmail.com");
 INSERT INTO users(userName, password, email, address, phone) VALUES ("bill", "aaacsac", "bill@gmail.com", "wall", "021321312");
+INSERT INTO users(userName, password, email, address, phone, fees, userType) VALUES ("admin", "aadqffewf", "admin@gmail.com",
+ "wall", "021321312", 0, 1);
 INSERT INTO userbooks VALUES(1, 1, "2023-11-11 13:23:44", "2023-12-11 13:23:44", "2023-11-12 13:23:44");
 
 insert into books(bookName, author, description, quantity) VALUES ("one piece", "oda", "it is a manga of pirates", 1000);

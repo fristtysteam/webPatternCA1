@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.3
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 12, 2023 at 04:16 PM
--- Server version: 10.4.24-MariaDB
--- PHP Version: 8.1.4
+-- Generation Time: Oct 16, 2023 at 05:08 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,7 +27,7 @@ DROP TABLE IF EXISTS `bookgenres`;
 CREATE TABLE `bookgenres` (
                               `bookID` int(11) NOT NULL,
                               `genreID` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `bookgenres`
@@ -56,7 +56,7 @@ CREATE TABLE `books` (
                          `author` varchar(255) NOT NULL,
                          `description` varchar(255) DEFAULT NULL,
                          `quantity` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `books`
@@ -79,15 +79,15 @@ DROP TABLE IF EXISTS `genres`;
 CREATE TABLE `genres` (
                           `genreID` int(11) NOT NULL,
                           `genreName` varchar(40) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `genres`
 --
 
 INSERT INTO `genres` (`genreID`, `genreName`) VALUES
-                                                  (2, 'action'),
                                                   (1, 'comedy'),
+                                                  (2, 'action'),
                                                   (3, 'horror'),
                                                   (4, 'romance'),
                                                   (5, 'sci-fi');
@@ -105,7 +105,7 @@ CREATE TABLE `userbooks` (
                              `borrowDate` datetime NOT NULL,
                              `dueDate` datetime NOT NULL,
                              `returnedDate` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `userbooks`
@@ -127,16 +127,19 @@ CREATE TABLE `users` (
                          `email` varchar(255) NOT NULL,
                          `password` varchar(255) NOT NULL,
                          `address` varchar(80) DEFAULT NULL,
-                         `phone` varchar(20) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+                         `phone` varchar(20) DEFAULT NULL,
+                         `fees` int(11) DEFAULT NULL,
+                         `userType` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`userID`, `userName`, `email`, `password`, `address`, `phone`) VALUES
-                                                                                        (1, 'jerry', 'jerry@gmail.com', 'aaa', NULL, NULL),
-                                                                                        (2, 'bill', 'bill@gmail.com', 'aaacsac', 'wall', '021321312');
+INSERT INTO `users` (`userID`, `userName`, `email`, `password`, `address`, `phone`, `fees`, `userType`) VALUES
+                                                                                                            (1, 'jerry', 'jerry@gmail.com', 'aaa', NULL, NULL, 0, 0),
+                                                                                                            (2, 'bill', 'bill@gmail.com', 'aaacsac', 'wall', '021321312', 0, 0),
+                                                                                                            (3, 'admin', 'admin@gmail.com', 'aadqffewf', 'wall', '021321312', 0, 1);
 
 --
 -- Indexes for dumped tables
@@ -147,7 +150,7 @@ INSERT INTO `users` (`userID`, `userName`, `email`, `password`, `address`, `phon
 --
 ALTER TABLE `bookgenres`
     ADD KEY `bookID` (`bookID`),
-  ADD KEY `genreID` (`genreID`);
+    ADD KEY `genreID` (`genreID`);
 
 --
 -- Indexes for table `books`
@@ -160,22 +163,22 @@ ALTER TABLE `books`
 --
 ALTER TABLE `genres`
     ADD PRIMARY KEY (`genreID`),
-  ADD UNIQUE KEY `genreName` (`genreName`);
+    ADD UNIQUE KEY `genreName` (`genreName`);
 
 --
 -- Indexes for table `userbooks`
 --
 ALTER TABLE `userbooks`
     ADD KEY `userID` (`userID`),
-  ADD KEY `bookID` (`bookID`);
+    ADD KEY `bookID` (`bookID`);
 
 --
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
     ADD PRIMARY KEY (`userID`),
-  ADD UNIQUE KEY `userName` (`userName`),
-  ADD UNIQUE KEY `email` (`email`);
+    ADD UNIQUE KEY `userName` (`userName`),
+    ADD UNIQUE KEY `email` (`email`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -197,7 +200,7 @@ ALTER TABLE `genres`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-    MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+    MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
@@ -208,12 +211,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `bookgenres`
     ADD CONSTRAINT `bookgenres_ibfk_1` FOREIGN KEY (`bookID`) REFERENCES `books` (`bookID`),
-  ADD CONSTRAINT `bookgenres_ibfk_2` FOREIGN KEY (`genreID`) REFERENCES `genres` (`genreID`);
+    ADD CONSTRAINT `bookgenres_ibfk_2` FOREIGN KEY (`genreID`) REFERENCES `genres` (`genreID`);
 
 --
 -- Constraints for table `userbooks`
 --
 ALTER TABLE `userbooks`
     ADD CONSTRAINT `userbooks_ibfk_1` FOREIGN KEY (`userID`) REFERENCES `users` (`userID`),
-  ADD CONSTRAINT `userbooks_ibfk_2` FOREIGN KEY (`bookID`) REFERENCES `books` (`bookID`);
+    ADD CONSTRAINT `userbooks_ibfk_2` FOREIGN KEY (`bookID`) REFERENCES `books` (`bookID`);
 COMMIT;
