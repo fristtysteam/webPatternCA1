@@ -82,10 +82,9 @@ public class Dao {
         try {
             con = this.getConnection();
 
-            String query = "ALTER TABLE ? AUTO_INCREMENT = ?";
+            String query = "ALTER TABLE " + tableName + " AUTO_INCREMENT = ?";
             ps = con.prepareStatement(query);
-            ps.setString(1, tableName);
-            ps.setInt(2, num);
+            ps.setInt(1, num);
             ps.executeUpdate();
         } catch (SQLException e) {
             System.err.println("\tA problem occurred during the updateIncrement method:");
