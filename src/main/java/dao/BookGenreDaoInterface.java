@@ -2,6 +2,9 @@ package dao;
 
 import java.util.List;
 
+import business.Book;
+import business.Genre;
+
 public interface BookGenreDaoInterface {
 
     /**
