@@ -12,14 +12,24 @@ class UserDaoTest {
      */
     @Test
     void registerUser_normal() {
-        User exp = new User(4, "aabbcc", "aabbcc@gmail.com",
-                "wefwef", "address", "sad", 0, 0);
         User act = userDao.registerUser("aabbcc", "aabbcc@gmail.com",
                 "wefwef", "address", "sad");
 
-        assertEquals(exp, act);
-        userDao.deleteUserByID(4);
-        userDao.updateIncrement("users", 4);
+        User user = userDao.getUserByID(3);
+
+        assertEquals(user.getUserID(), act.getUserID());
+        assertEquals(user.getUserName(), act.getUserName());
+        assertEquals(user.getEmail(), act.getEmail());
+        assertEquals(user.getPassword(), act.getPassword());
+        assertEquals(user.getAddress(), act.getAddress());
+        assertEquals(user.getPhone(), act.getPhone());
+        assertEquals(user.getFees(), act.getFees());
+        assertEquals(user.getSecret(), act.getSecret());
+        assertEquals(user.getSalt(), act.getSalt());
+        assertEquals(user.getUserType(), act.getUserType());
+
+        userDao.deleteUserByID(3);
+        userDao.updateIncrement("users", 3);
     }
 
     /**
@@ -31,7 +41,7 @@ class UserDaoTest {
                 "wefwef", "address", "sad");
 
         assertNull(act);
-        userDao.updateIncrement("users", 4);
+        userDao.updateIncrement("users", 3);
     }
 
     /**
@@ -43,7 +53,7 @@ class UserDaoTest {
                 "wefwef", "address", "sad");
 
         assertNull(act);
-        userDao.updateIncrement("users", 4);
+        userDao.updateIncrement("users", 3);
     }
 
     /**
@@ -51,12 +61,21 @@ class UserDaoTest {
      */
     @Test
     void loginUser_normal() {
-        User exp = new User(1, "jerry",
-                "jerry@gmail.com", "aaa",
-                null, null, 0, 0);
-        User act = userDao.loginUser("jerry@gmail.com", "aaa");
+        User user = new User(1, "jerry", "jerry@gmail.com", "rippleMMW1$",
+                "address", "231030213", 30,
+                "OYYdUyE9lGfw3Gb8/m59KALhcTL2scX/", "99G8d2K9vXql2YyHPw++fzn+UgPbS+vu/kyzvBfXzSk=", 0);
+        User act = userDao.loginUser("jerry@gmail.com", "rippleMMW1$");
 
-        assertEquals(exp, act);
+        assertEquals(user.getUserID(), act.getUserID());
+        assertEquals(user.getUserName(), act.getUserName());
+        assertEquals(user.getEmail(), act.getEmail());
+        assertEquals(user.getPassword(), act.getPassword());
+        assertEquals(user.getAddress(), act.getAddress());
+        assertEquals(user.getPhone(), act.getPhone());
+        assertEquals(user.getFees(), act.getFees());
+        assertEquals(user.getSecret(), act.getSecret());
+        assertEquals(user.getSalt(), act.getSalt());
+        assertEquals(user.getUserType(), act.getUserType());
     }
 
     /**
@@ -84,12 +103,21 @@ class UserDaoTest {
      */
     @Test
     void getUserByID_normal() {
-        User exp = new User(1, "jerry",
-                "jerry@gmail.com", "aaa",
-                null, null, 0, 0);
+        User user = new User(1, "jerry", "jerry@gmail.com", "rippleMMW1$",
+                "address", "231030213", 30,
+                "OYYdUyE9lGfw3Gb8/m59KALhcTL2scX/", "99G8d2K9vXql2YyHPw++fzn+UgPbS+vu/kyzvBfXzSk=", 0);
         User act = userDao.getUserByID(1);
 
-        assertEquals(exp, act);
+        assertEquals(user.getUserID(), act.getUserID());
+        assertEquals(user.getUserName(), act.getUserName());
+        assertEquals(user.getEmail(), act.getEmail());
+        assertEquals(user.getPassword(), act.getPassword());
+        assertEquals(user.getAddress(), act.getAddress());
+        assertEquals(user.getPhone(), act.getPhone());
+        assertEquals(user.getFees(), act.getFees());
+        assertEquals(user.getSecret(), act.getSecret());
+        assertEquals(user.getSalt(), act.getSalt());
+        assertEquals(user.getUserType(), act.getUserType());
     }
 
     /**
@@ -110,9 +138,11 @@ class UserDaoTest {
         int exp = 1;
         userDao.registerUser("aabbcc", "aabbcc@gmail.com",
                 "wefwef", "address", "sad");
-        int act = userDao.deleteUserByID(4);
+        int act = userDao.deleteUserByID(3);
 
         assertEquals(exp, act);
+        userDao.updateIncrement("users", 3);
+
     }
 
     /**
