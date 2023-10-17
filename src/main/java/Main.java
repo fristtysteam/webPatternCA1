@@ -1,4 +1,6 @@
 import business.Book;
+import business.User;
+import dao.UserDao;
 import util.AESCrypto;
 
 import javax.crypto.BadPaddingException;
@@ -7,17 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) throws NoSuchAlgorithmException, BadPaddingException {
-        String secret = AESCrypto.AESKey();
-        System.out.println(secret.length());
-        System.out.println("rippleMMW1");
-        AESCrypto.SALT = AESCrypto.salt();
-        System.out.println(AESCrypto.SALT.length());
-        String pass = AESCrypto.encrypt("rippleMMW1", secret);
-        System.out.println(pass);
-//        secret = AESCrypto.AESKey();
-        System.out.println(AESCrypto.decrypt(pass, secret));
+    public static void main(String[] args) throws NoSuchAlgorithmException {
 
+        UserDao userDao = new UserDao("library");
+        User u =userDao.registerUser("admin", "admin@gmail.com",
+                "rippleMMW1$", "address", "0231030213");
 
+        System.out.println(u);
+        User a = userDao.loginUser("admin@gmail.com", "rippleMMW1$");
+
+        System.out.println(a);
     }
 }
