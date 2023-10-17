@@ -1,18 +1,17 @@
-import business.Book;
 
-import java.util.ArrayList;
-import java.util.List;
+import business.User;
+import dao.UserDao;
 
 public class Main {
     public static void main(String[] args) {
 
-//        UserBookDao userBookDao = new UserBookDao("library");
-//        List<Book> books;
-//
-//        books = userBookDao.getAllBooksByUserID(1);
-//
-//        System.out.println(books);
-//
-//        System.out.println("start");
+        UserDao userDao = new UserDao("library");
+        User u =userDao.registerUser("admin", "admin@gmail.com",
+                "rippleMMW1$", "address", "0231030213");
+
+        System.out.println(u);
+        User a = userDao.loginUser("admin@gmail.com", "rippleMMW1$");
+
+        System.out.println(a);
     }
 }

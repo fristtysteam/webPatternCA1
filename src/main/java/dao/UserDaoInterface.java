@@ -2,6 +2,8 @@ package dao;
 
 import business.User;
 
+import java.security.NoSuchAlgorithmException;
+
 public interface UserDaoInterface {
 
     /**
@@ -13,7 +15,7 @@ public interface UserDaoInterface {
      * @param phone the phone number
      * @return the user
      */
-    public User registerUser(String username, String email, String password, String address, String phone);
+    public User registerUser(String username, String email, String password, String address, String phone) throws NoSuchAlgorithmException;
 
     /**
      * login the user
