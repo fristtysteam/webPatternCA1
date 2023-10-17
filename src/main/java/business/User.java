@@ -11,9 +11,10 @@ public class User{
     private String address;
     private String phone;
     private int fees;
+    private String salt;
     private int userType;
 
-    public User(int userID, String userName, String email, String password, String address, String phone, int fees, int userType) {
+    public User(int userID, String userName, String email, String password, String address, String phone, int fees, String salt, int userType) {
         this.userID = userID;
         this.userName = userName;
         this.email = email;
@@ -21,6 +22,7 @@ public class User{
         this.address = address;
         this.phone = phone;
         this.fees = fees;
+        this.salt = salt;
         this.userType = userType;
     }
 
@@ -83,6 +85,14 @@ public class User{
         this.fees = fees;
     }
 
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
+
     public int getUserType() {
         return userType;
     }
@@ -115,9 +125,9 @@ public class User{
                 ", password='" + password + '\'' +
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
+                ", fees=" + fees +
+                ", salt='" + salt + '\'' +
+                ", userType=" + userType +
                 '}';
     }
-
-
-
 }

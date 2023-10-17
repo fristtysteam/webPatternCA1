@@ -6,6 +6,8 @@ CREATE TABLE users(
     address varchar(80),
     phone varchar(20),
     fees int not null,
+    secret varchar(32) not null,
+    salt varchar(44) not null,
     userType int not null,
     primary key(userID)
 );
@@ -68,4 +70,4 @@ insert into bookGenres VALUES(4, 3);
 insert into bookGenres VALUES(4, 1);
 insert into bookGenres VALUES(5, 2);
 
-INSERT INTO userbooks VALUES(1, 1, "2023-11-11 13:23:44", "2023-12-11 13:23:44", "2023-11-12 13:23:44");
+--INSERT INTO userbooks VALUES(1, 1, "2023-11-11 13:23:44", "2023-12-11 13:23:44", "2023-11-12 13:23:44");
