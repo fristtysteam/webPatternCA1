@@ -1,15 +1,9 @@
-import business.Book;
+
 import business.User;
 import dao.UserDao;
-import util.AESCrypto;
-
-import javax.crypto.BadPaddingException;
-import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
-    public static void main(String[] args) throws NoSuchAlgorithmException {
+    public static void main(String[] args) {
 
         UserDao userDao = new UserDao("library");
         User u =userDao.registerUser("admin", "admin@gmail.com",

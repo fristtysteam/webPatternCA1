@@ -14,10 +14,16 @@ public class UserDao extends Dao implements UserDaoInterface{
     }
 
     @Override
-    public User registerUser(String username, String email, String password, String address, String phone) throws NoSuchAlgorithmException {
+    public User registerUser(String username, String email, String password, String address, String phone) {
         int newId;
         User user = null;
-        String secret = AESCrypto.AESKey();
+        String secret;
+        try {
+            secret = AESCrypto.AESKey();
+        } catch (NoSuchAlgorithmException e) {
+            System.out.println("registration failed, encryption error");
+            return null;
+        }
         AESCrypto.SALT = AESCrypto.salt();
         String hashPassword = AESCrypto.encrypt(password, secret);
 
@@ -134,10 +140,12 @@ public class UserDao extends Dao implements UserDaoInterface{
             // If there was a result, i.e. if the entry was inserted successfully
             if(rs.next())
             {
+                AESCrypto.SALT = rs.getString("salt");
+
                 newId = rs.getInt("userID");
                 username = rs.getString("userName");
                 email = rs.getString("email");
-                pass = rs.getString("password");
+                pass = AESCrypto.decrypt(rs.getString("password"), rs.getString("secret"));
                 address = rs.getString("address");
                 phone = rs.getString("phone");
                 fees = rs.getInt("fees");
@@ -152,6 +160,10 @@ public class UserDao extends Dao implements UserDaoInterface{
         catch(SQLException se){
             System.out.println(se.getMessage());
             System.out.println("something went wrong");
+        }
+        catch (BadPaddingException e) {
+            System.out.println(e.getMessage());
+            System.out.println("padding error, hashing check error");
         }
         finally {
             freeConnection();
@@ -184,7 +196,7 @@ public class UserDao extends Dao implements UserDaoInterface{
     }
 
     /**
-     * check if password match
+     * check if password match, complementary to the loginUser
      * @param hashPassword the hash password
      * @param password the password
      * @param secret the secret key
