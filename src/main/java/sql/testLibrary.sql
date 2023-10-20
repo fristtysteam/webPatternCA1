@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 16, 2023 at 06:04 PM
+-- Generation Time: Oct 17, 2023 at 08:39 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.4
 
@@ -107,13 +107,6 @@ CREATE TABLE `userbooks` (
                              `returnedDate` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Dumping data for table `userbooks`
---
-
-INSERT INTO `userbooks` (`userID`, `bookID`, `borrowDate`, `dueDate`, `returnedDate`) VALUES
-    (1, 1, '2023-11-11 13:23:44', '2023-12-11 13:23:44', '2023-11-12 13:23:44');
-
 -- --------------------------------------------------------
 
 --
@@ -129,6 +122,8 @@ CREATE TABLE `users` (
                          `address` varchar(80) DEFAULT NULL,
                          `phone` varchar(20) DEFAULT NULL,
                          `fees` int(11) NOT NULL,
+                         `secret` varchar(32) NOT NULL,
+                         `salt` varchar(44) NOT NULL,
                          `userType` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -136,10 +131,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`userID`, `userName`, `email`, `password`, `address`, `phone`, `fees`, `userType`) VALUES
-                                                                                                            (1, 'jerry', 'jerry@gmail.com', 'aaa', NULL, NULL, 0, 0),
-                                                                                                            (2, 'bill', 'bill@gmail.com', 'aaacsac', 'wall', '021321312', 0, 0),
-                                                                                                            (3, 'admin', 'admin@gmail.com', 'aadqffewf', 'wall', '021321312', 0, 1);
+INSERT INTO `users` (`userID`, `userName`, `email`, `password`, `address`, `phone`, `fees`, `secret`, `salt`, `userType`) VALUES
+                                                                                                                              (1, 'jerry', 'jerry@gmail.com', 'DZ2/hHLA27JviQ0jYCefMg==', 'address', '231030213', 30, 'OYYdUyE9lGfw3Gb8/m59KALhcTL2scX/', '99G8d2K9vXql2YyHPw++fzn+UgPbS+vu/kyzvBfXzSk=', 0),
+                                                                                                                              (2, 'admin', 'admin@gmail.com', 'TEDnJUPaQkAOZjaQLhLfYg==', 'address', '0231030213', 0, 'N7AdDxc0SyHc0jaj76SGqIxmeXifzfYJ', '4VQHqS0JUMo5ZyacTSWed8k4+7BCniWLrMb1uiMAlsY=', 1);
 
 --
 -- Indexes for dumped tables
@@ -200,7 +194,7 @@ ALTER TABLE `genres`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-    MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+    MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables
