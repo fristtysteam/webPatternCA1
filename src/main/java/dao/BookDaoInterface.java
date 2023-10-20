@@ -1,30 +1,31 @@
 package dao;
 
-import java.sql.SQLException;
 import java.util.List;
 import business.Book;
-    public interface BookDaoInterface {
 
-        /**
-         * @return a list of all books in the database
-         * @throws SQLException if there is an error in the database
-         */
-        List<Book> getAllBooks() throws SQLException;
+public interface BookDaoInterface {
 
+    /**
+     * get all the books
+     * @return a list of books
+     */
+    public List<Book> getAllBooks();
 
-        /**
-         * @param bookID the ID of the book to get
-         * @return the book with the ID enter, or null if the book does not exist
-         * @throws SQLException if there is an error in the database
-         */
-        Book getBookByID(int bookID) throws SQLException;
+    /**
+     * get the book by ID
+     * @param bookID the bookID
+     * @return the book
+     */
+    public Book getBookByID(int bookID);
 
-        /**
-         * @param bookID the ID of the book to update
-         * @param increase true to increase the quantity, false to decrease the quantity
-         * @return the number of rows affected by the update
-         * @throws SQLException if there is an error in the database
-         */
-        int updateBookQuantity(int bookID, boolean increase) throws SQLException;
-    }
+    /**
+     * update the quantity in the book
+     * @param bookID the bookID
+     * @param increase boolean, if true then quantity +1, otherwise -1
+     * @return rows affected
+     */
+    public int updateBookQuantity(int bookID, boolean increase);
+
+}
+
 
