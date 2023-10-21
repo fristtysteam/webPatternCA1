@@ -1,6 +1,7 @@
 package dao;
 
 import business.Book;
+import business.UserBook;
 
 import java.util.List;
 
@@ -11,14 +12,14 @@ public interface UserBookDaoInterface {
      * @param userID the user
      * @return lists of books
      */
-    public List<Book> getAllBooksByUserID(int userID);
+    public List<UserBook> getAllBooksByUserID(int userID);
 
     /**
      * get all the current books borrowed by user
      * @param userID the user
      * @return lists of books
      */
-    public List<Book> getAllCurrentBooksByUserID(int userID);
+    public List<UserBook> getAllCurrentBooksByUserID(int userID);
 
     /**
      * borrow a book, dueDate within next 2 weeks, quantity of book will be decreased
