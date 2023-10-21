@@ -155,4 +155,21 @@ class UserDaoTest {
 
         assertEquals(exp, act);
     }
+
+    /**
+     * updateFee, normal
+     */
+    @Test
+    void updateFee_normal() {
+        assertEquals(1, userDao.updateFee(1, 20));
+        assertEquals(1, userDao.updateFee(1, -20));
+    }
+
+    /**
+     * updateFee, but no valid ID
+     */
+    @Test
+    void updateFee_no_valid_ID() {
+        assertEquals(0, userDao.updateFee(100, 20));
+    }
 }

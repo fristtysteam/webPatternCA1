@@ -4,16 +4,16 @@ import business.Book;
 import business.UserBook;
 
 import java.sql.SQLException;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserBookDao extends Dao implements UserBookDaoInterface{
 
-    private BookDao bookDao;
-    private UserDao userDao;
+    private final BookDao bookDao;
+    private final UserDao userDao;
     public UserBookDao(String dbName) {
         super(dbName);
         bookDao = new BookDao(dbName);
@@ -53,7 +53,7 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
         }
         catch(SQLException se){
             System.out.println(se.getMessage());
-            System.out.println("something went wrong");
+            System.out.println("something went wrong with getAllBooksByUserID");
         }
         finally {
             freeConnection();
@@ -67,7 +67,7 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
         List<UserBook> userBooks = new ArrayList<>();
 
         try{
-            String query = "SELECT * FROM userbooks WHERE userID = ? AND borrowDate < dueDate";
+            String query = "SELECT * FROM userbooks WHERE userID = ? AND borrowDate < dueDate AND returnedDate is not null";
             con = getConnection();
             ps = con.prepareStatement(query);
             ps.setInt(1, userID);
@@ -87,7 +87,7 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
         }
         catch(SQLException se){
             System.out.println(se.getMessage());
-            System.out.println("something went wrong");
+            System.out.println("something went wrong with getAllCurrentBooksByUserID");
         }
         finally {
             freeConnection();
@@ -147,6 +147,7 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
 
             rowsAffected = ps.executeUpdate();
             bookDao.updateBookQuantity(bookID, true);
+            checkIfLate(1, 1);
         }
         catch(SQLException se){
             System.out.println(se.getMessage());
@@ -174,7 +175,7 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
 
             if(rs.next()){
                 count = rs.getInt(1);
-                if(count > 1){
+                if(count >= 1){
                     flag = true;
                 }
             }
@@ -217,40 +218,36 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
     }
 
     @Override
-    public boolean checkIfLate(int userID, int bookID) {
-        boolean flag = false;
-
+    public void checkIfLate(int userID, int bookID) {
         try{
             String query = "SELECT * FROM userbooks WHERE userID = ? AND bookID = ?";
             con = getConnection();
             ps = con.prepareStatement(query);
             ps.setInt(1, userID);
+            ps.setInt(2, bookID);
             rs = ps.executeQuery();
 
             if(rs.next()){
                 Timestamp due = rs.getTimestamp("dueDate");
-                Timestamp returned = rs.getTimestamp("returnDate");
+                Timestamp returned = rs.getTimestamp("returnedDate");
 
                 LocalDateTime dueDate = due.toLocalDateTime();
                 LocalDateTime returnedDate = returned.toLocalDateTime();
 
-                if(dueDate.isBefore(returnedDate)){
-                    flag = false;
-                }
-                else{
-                    flag = true;
+                if(returnedDate.isAfter(dueDate)){
+                    int days = (int)ChronoUnit.DAYS.between(dueDate, returnedDate);
+                    System.out.println("late return for " + days + " days, late fee added: $" + (10 * days));
+                    userDao.updateFee(userID, 10 * days);
                 }
             }
 
         }
         catch(SQLException se){
             System.out.println(se.getMessage());
-            System.out.println("something went wrong");
+            System.out.println("something went wrong with checkIfLate");
         }
         finally {
             freeConnection();
         }
-
-        return flag;
     }
 }

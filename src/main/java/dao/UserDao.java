@@ -195,6 +195,30 @@ public class UserDao extends Dao implements UserDaoInterface{
         return rowsAffected;
     }
 
+    @Override
+    public int updateFee(int userID, int fee) {
+        int rowsAffected = 0;
+        try{
+            String query = "UPDATE users SET fees = fees + (?) WHERE userID = ?";
+            con = getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, fee);
+            ps.setInt(2, userID);
+
+            rowsAffected = ps.executeUpdate();
+
+        }
+        catch(SQLException se){
+            System.out.println(se.getMessage());
+            System.out.println("something went wrong");
+        }
+        finally {
+            freeConnectionUpdate();
+        }
+
+        return rowsAffected;
+    }
+
     /**
      * check if password match, complementary to the loginUser
      * @param hashPassword the hash password
