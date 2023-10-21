@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2023 at 08:39 PM
+-- Generation Time: Oct 21, 2023 at 07:38 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.4
 
@@ -63,7 +63,7 @@ CREATE TABLE `books` (
 --
 
 INSERT INTO `books` (`bookID`, `bookName`, `author`, `description`, `quantity`) VALUES
-                                                                                    (1, 'one piece', 'oda', 'it is a manga of pirates', 1000),
+                                                                                    (1, 'one piece', 'oda', 'it is a manga of pirates', 991),
                                                                                     (2, 'gintama', 'Hideaki Sorachi', 'it is a manga of gintama', 20),
                                                                                     (3, 'naruto', 'Masashi Kishimoto', 'it is a manga of ninjas', 5),
                                                                                     (4, 'Mieruko-chan', 'Tomoki Izumi', 'horror manga with ability to see ghost', 4),
@@ -106,6 +106,13 @@ CREATE TABLE `userbooks` (
                              `dueDate` datetime NOT NULL,
                              `returnedDate` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `userbooks`
+--
+
+INSERT INTO `userbooks` (`userID`, `bookID`, `borrowDate`, `dueDate`, `returnedDate`) VALUES
+    (1, 4, '2023-11-11 13:23:44', '2023-11-14 13:23:44', '2023-11-17 13:23:44');
 
 -- --------------------------------------------------------
 
