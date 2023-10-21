@@ -147,7 +147,7 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
 
             rowsAffected = ps.executeUpdate();
             bookDao.updateBookQuantity(bookID, true);
-            checkIfLate(1, 1);
+            //checkIfLate(1, 1);
         }
         catch(SQLException se){
             System.out.println(se.getMessage());

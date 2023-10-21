@@ -228,15 +228,15 @@ class UserBookDaoTest {
     @Test
     void checkIfLate_normal() {
         //there is a user returning late, assume he is
-        userBookDao.checkIfLate(1, 4);
+        userBookDao.checkIfLate(3, 4);
 
         //the fee should be updated from 30 to 60
-        User user = userDao.getUserByID(1);
-        int exp = 60;
+        User user = userDao.getUserByID(3);
+        int exp = 120;
         int act = user.getFees();
 
         //revert the fee
-        userDao.updateFee(1, -30);
+        userDao.updateFee(3, -30);
 
         assertEquals(exp, act);
     }
