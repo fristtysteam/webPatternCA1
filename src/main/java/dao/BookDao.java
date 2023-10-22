@@ -14,6 +14,7 @@ public class BookDao extends Dao implements BookDaoInterface {
     public BookDao(String dbName) {
         super(dbName);
     }
+    public BookDao(Connection con) {super(con); }
 
     /**
      * Get a list of all books in the library.
