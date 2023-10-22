@@ -240,4 +240,22 @@ class UserBookDaoTest {
 
         assertEquals(exp, act);
     }
+
+    /**
+     * check if not late
+     */
+    @Test
+    void checkIfLate_notLate(){
+        userBookDao.borrowBook(1, 2);
+        userBookDao.returnBook(1, 2);
+
+        userBookDao.checkIfLate(1, 2);
+        User user = userDao.getUserByID(1);
+        int exp = -60;
+        int act = user.getFees();
+
+        userBookDao.deleteUserBookByUserIDAndBookID(1, 2);
+
+        assertEquals(exp, act);
+    }
 }
