@@ -8,6 +8,8 @@ public class Dao {
     protected ResultSet rs = null;
     protected String dbName;
 
+    public static boolean mock = false;
+
     public Dao(String dbName){
         this.dbName = dbName;
     }
@@ -18,6 +20,9 @@ public class Dao {
      * @return connection
      */
     public Connection getConnection() {
+        if(mock){
+            return con;
+        }
 
         String driver = "com.mysql.cj.jdbc.Driver";
         String url = "jdbc:mysql://localhost:3306/" + dbName;
