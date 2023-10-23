@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 21, 2023 at 08:01 PM
+-- Generation Time: Oct 23, 2023 at 04:40 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.4
 
@@ -63,8 +63,8 @@ CREATE TABLE `books` (
 --
 
 INSERT INTO `books` (`bookID`, `bookName`, `author`, `description`, `quantity`) VALUES
-                                                                                    (1, 'one piece', 'oda', 'it is a manga of pirates', 991),
-                                                                                    (2, 'gintama', 'Hideaki Sorachi', 'it is a manga of gintama', 25),
+                                                                                    (1, 'one piece', 'oda', 'it is a manga of pirates', 1000),
+                                                                                    (2, 'gintama', 'Hideaki Sorachi', 'it is a manga of gintama', 20),
                                                                                     (3, 'naruto', 'Masashi Kishimoto', 'it is a manga of ninjas', 5),
                                                                                     (4, 'Mieruko-chan', 'Tomoki Izumi', 'horror manga with ability to see ghost', 4),
                                                                                     (5, 'blue lock', 'yusuke nomura', 'hardcore soccer', 66);
@@ -112,7 +112,7 @@ CREATE TABLE `userbooks` (
 --
 
 INSERT INTO `userbooks` (`userID`, `bookID`, `borrowDate`, `dueDate`, `returnedDate`) VALUES
-    (3, 4, '2023-11-11 13:23:44', '2023-11-14 13:23:44', '2023-11-17 13:23:44');
+    (1, 4, '2023-11-11 13:23:44', '2023-11-14 13:23:44', '2023-11-17 13:23:44');
 
 -- --------------------------------------------------------
 
@@ -125,12 +125,10 @@ CREATE TABLE `users` (
                          `userID` int(11) NOT NULL,
                          `userName` varchar(50) NOT NULL,
                          `email` varchar(255) NOT NULL,
-                         `password` varchar(255) NOT NULL,
+                         `password` varchar(80) NOT NULL,
                          `address` varchar(80) DEFAULT NULL,
                          `phone` varchar(20) DEFAULT NULL,
                          `fees` int(11) NOT NULL,
-                         `secret` varchar(32) NOT NULL,
-                         `salt` varchar(44) NOT NULL,
                          `userType` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -138,10 +136,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`userID`, `userName`, `email`, `password`, `address`, `phone`, `fees`, `secret`, `salt`, `userType`) VALUES
-                                                                                                                              (1, 'jerry', 'jerry@gmail.com', 'DZ2/hHLA27JviQ0jYCefMg==', 'address', '231030213', -60, 'OYYdUyE9lGfw3Gb8/m59KALhcTL2scX/', '99G8d2K9vXql2YyHPw++fzn+UgPbS+vu/kyzvBfXzSk=', 0),
-                                                                                                                              (2, 'admin', 'admin@gmail.com', 'TEDnJUPaQkAOZjaQLhLfYg==', 'address', '0231030213', 0, 'N7AdDxc0SyHc0jaj76SGqIxmeXifzfYJ', '4VQHqS0JUMo5ZyacTSWed8k4+7BCniWLrMb1uiMAlsY=', 1),
-                                                                                                                              (3, 'bob', 'bobEmail@gmail.com', '0+M4KOVoxidPSSF4G0c6AQ==', 'sadafsd', '2213213', 90, 'mV3SM9nDEToCH6PIv98ROPBNMvrIClUx', 'Tl40e8NJIsnyr4Xqf2a4STs0D3f7I0HyptijM8pp3kw=', 0);
+INSERT INTO `users` (`userID`, `userName`, `email`, `password`, `address`, `phone`, `fees`, `userType`) VALUES
+                                                                                                            (1, 'jerry', 'jerry@gmail.com', '$2a$10$K.uvVBVFs1HRMO83Y6Er0.Qx6CTy40VJf38TgkA7csG1.ecyKctUC', 'address', '231030213', 30, 0),
+                                                                                                            (2, 'admin', 'admin@gmail.com', '$2a$10$KLMZQ1aqt95iVgI/ir1qWOmE.Docxd5VucQRSIE62IkAVhvPVbXk2', 'address', '0231030213', 0, 1);
 
 --
 -- Indexes for dumped tables
@@ -202,7 +199,7 @@ ALTER TABLE `genres`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-    MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+    MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- Constraints for dumped tables

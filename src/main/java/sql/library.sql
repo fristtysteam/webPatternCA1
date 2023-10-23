@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 17, 2023 at 08:42 PM
+-- Generation Time: Oct 23, 2023 at 04:39 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.4
 
@@ -118,12 +118,10 @@ CREATE TABLE `users` (
                          `userID` int(11) NOT NULL,
                          `userName` varchar(50) NOT NULL,
                          `email` varchar(255) NOT NULL,
-                         `password` varchar(255) NOT NULL,
+                         `password` varchar(80) NOT NULL,
                          `address` varchar(80) DEFAULT NULL,
                          `phone` varchar(20) DEFAULT NULL,
                          `fees` int(11) NOT NULL,
-                         `secret` varchar(32) NOT NULL,
-                         `salt` varchar(44) NOT NULL,
                          `userType` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -131,9 +129,9 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`userID`, `userName`, `email`, `password`, `address`, `phone`, `fees`, `secret`, `salt`, `userType`) VALUES
-                                                                                                                              (1, 'jerry', 'jerry@gmail.com', 'DZ2/hHLA27JviQ0jYCefMg==', 'address', '231030213', 30, 'OYYdUyE9lGfw3Gb8/m59KALhcTL2scX/', '99G8d2K9vXql2YyHPw++fzn+UgPbS+vu/kyzvBfXzSk=', 0),
-                                                                                                                              (2, 'admin', 'admin@gmail.com', 'TEDnJUPaQkAOZjaQLhLfYg==', 'address', '0231030213', 0, 'N7AdDxc0SyHc0jaj76SGqIxmeXifzfYJ', '4VQHqS0JUMo5ZyacTSWed8k4+7BCniWLrMb1uiMAlsY=', 1);
+INSERT INTO `users` (`userID`, `userName`, `email`, `password`, `address`, `phone`, `fees`, `userType`) VALUES
+                                                                                                            (1, 'jerry', 'jerry@gmail.com', '$2a$10$K.uvVBVFs1HRMO83Y6Er0.Qx6CTy40VJf38TgkA7csG1.ecyKctUC', 'address', '231030213', 30, 0),
+                                                                                                            (2, 'admin', 'admin@gmail.com', '$2a$10$KLMZQ1aqt95iVgI/ir1qWOmE.Docxd5VucQRSIE62IkAVhvPVbXk2', 'address', '0231030213', 0, 1);
 
 --
 -- Indexes for dumped tables
