@@ -18,6 +18,7 @@ class BookDaoIsolationTest {
 
     @Test
     void getAllBooks() throws SQLException {
+        Dao.mock = true;
         Book bookA = new Book(1, "titleA", "me", "desc", 10);
         Book bookB = new Book(2, "titleA", "me", "desc", 10);
         List<Book> books = new ArrayList<>();
@@ -43,6 +44,7 @@ class BookDaoIsolationTest {
         BookDao bookDao = new BookDao(dbConn);
         List<Book> result = bookDao.getAllBooks();
 
+        Dao.mock = false;
         assertEquals(books, result);
     }
 

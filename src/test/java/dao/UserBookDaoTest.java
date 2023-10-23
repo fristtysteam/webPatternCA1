@@ -15,7 +15,7 @@ class UserBookDaoTest {
     private final UserBookDao userBookDao = new UserBookDao("testLibrary");
     private final BookDao bookDao = new BookDao("testLibrary");
     private final UserDao userDao = new UserDao("testLibrary");
-    private final User user = userDao.getUserByID(1);
+    private final User user = userDao.getUserByID(2);
 
     /**
      * getAllBooksByUserID, normal way
@@ -23,7 +23,7 @@ class UserBookDaoTest {
     @Test
     void getAllBooksByUserID_normal() {
         //need to simulate the book being returned
-        userBookDao.borrowBook(1, 1);
+        userBookDao.borrowBook(2, 1);
 
         //now let's check, there should be one there
         List<UserBook> expUserBooks = new ArrayList<>();
@@ -34,10 +34,10 @@ class UserBookDaoTest {
                 LocalDateTime.now().plusWeeks(2),
                 null
         ));
-        List<UserBook> actUserBooks = userBookDao.getAllBooksByUserID(1);
+        List<UserBook> actUserBooks = userBookDao.getAllBooksByUserID(2);
 
         //delete it and restore book quantity
-        userBookDao.deleteUserBookByUserIDAndBookID(1,1);
+        userBookDao.deleteUserBookByUserIDAndBookID(2,1);
         bookDao.updateBookQuantity(1, true);
 
         assertEquals(expUserBooks, actUserBooks);
@@ -61,7 +61,7 @@ class UserBookDaoTest {
     @Test
     void getAllBooksByUserID_noBooks() {
         List<UserBook> expBooks = new ArrayList<>();
-        List<UserBook> actBooks = userBookDao.getAllBooksByUserID(1);
+        List<UserBook> actBooks = userBookDao.getAllBooksByUserID(2);
 
         assertEquals(expBooks, actBooks);
     }
@@ -72,9 +72,9 @@ class UserBookDaoTest {
     @Test
     void getAllCurrentBooksByUserID_normal() {
         //time to borrow 2 books and return one
-        userBookDao.borrowBook(1, 1);
-        userBookDao.borrowBook(1, 2);
-        userBookDao.returnBook(1, 2);
+        userBookDao.borrowBook(2, 1);
+        userBookDao.borrowBook(2, 2);
+        userBookDao.returnBook(2, 2);
 
         //now let's check, there should be one there because it is checking currently
         //borrowed books
@@ -86,12 +86,12 @@ class UserBookDaoTest {
                 LocalDateTime.now().plusWeeks(2),
                 null
         ));
-        List<UserBook> actUserBooks = userBookDao.getAllCurrentBooksByUserID(1);
+        List<UserBook> actUserBooks = userBookDao.getAllCurrentBooksByUserID(2);
 
         //delete it and restore book quantity
-        userBookDao.deleteUserBookByUserIDAndBookID(1,1);
+        userBookDao.deleteUserBookByUserIDAndBookID(2,1);
         bookDao.updateBookQuantity(1, true);
-        userBookDao.deleteUserBookByUserIDAndBookID(1,2);
+        userBookDao.deleteUserBookByUserIDAndBookID(2,2);
 
         assertEquals(expUserBooks, actUserBooks);
     }
@@ -102,14 +102,14 @@ class UserBookDaoTest {
     @Test
     void getAllCurrentBooksByUserID_no_books() {
         //simulate borrow, not returned
-        userBookDao.borrowBook(1, 1);
+        userBookDao.borrowBook(2, 1);
 
         //checking
         List<UserBook> expBooks = new ArrayList<>();
-        List<UserBook> actBooks = userBookDao.getAllCurrentBooksByUserID(1);
+        List<UserBook> actBooks = userBookDao.getAllCurrentBooksByUserID(2);
 
         //delete it and restore book quantity
-        userBookDao.deleteUserBookByUserIDAndBookID(1,1);
+        userBookDao.deleteUserBookByUserIDAndBookID(2,1);
         bookDao.updateBookQuantity(1, true);
 
         assertEquals(expBooks, actBooks);
@@ -121,7 +121,7 @@ class UserBookDaoTest {
     @Test
     void borrowBook_normal() {
         //need to simulate the book
-        assertEquals(1, userBookDao.borrowBook(1, 1));
+        assertEquals(1, userBookDao.borrowBook(2, 1));
 
         //now let's check, there should be one there
         List<UserBook> expUserBooks = new ArrayList<>();
@@ -132,10 +132,10 @@ class UserBookDaoTest {
                 LocalDateTime.now().plusWeeks(2),
                 null
         ));
-        List<UserBook> actUserBooks = userBookDao.getAllBooksByUserID(1);
+        List<UserBook> actUserBooks = userBookDao.getAllBooksByUserID(2);
 
         //delete it and restore book quantity
-        userBookDao.deleteUserBookByUserIDAndBookID(1,1);
+        userBookDao.deleteUserBookByUserIDAndBookID(2,1);
         bookDao.updateBookQuantity(1, true);
 
         assertEquals(expUserBooks, actUserBooks);
@@ -148,9 +148,9 @@ class UserBookDaoTest {
     @Test
     void borrowBook_failed_duplicateBorrow() {
         //need to simulate the book
-        userBookDao.borrowBook(1, 1);
-        userBookDao.borrowBook(1, 1);
-        userBookDao.borrowBook(1, 1);
+        userBookDao.borrowBook(2, 1);
+        userBookDao.borrowBook(2, 1);
+        userBookDao.borrowBook(2, 1);
 
         //now let's check, there should be one there, the rest are copies
         List<UserBook> expUserBooks = new ArrayList<>();
@@ -161,10 +161,10 @@ class UserBookDaoTest {
                 LocalDateTime.now().plusWeeks(2),
                 null
         ));
-        List<UserBook> actUserBooks = userBookDao.getAllBooksByUserID(1);
+        List<UserBook> actUserBooks = userBookDao.getAllBooksByUserID(2);
 
         //delete it and restore book quantity
-        userBookDao.deleteUserBookByUserIDAndBookID(1,1);
+        userBookDao.deleteUserBookByUserIDAndBookID(2,1);
         bookDao.updateBookQuantity(1, true);
 
         assertEquals(expUserBooks, actUserBooks);
@@ -176,8 +176,8 @@ class UserBookDaoTest {
     @Test
     void returnBook_normal() {
         //time to borrow a book and return one
-        userBookDao.borrowBook(1, 2);
-        assertEquals(1, userBookDao.returnBook(1, 2));
+        userBookDao.borrowBook(2, 2);
+        assertEquals(1, userBookDao.returnBook(2, 2));
 
         //check if it has been returned
         List<UserBook> expUserBooks = new ArrayList<>();
@@ -188,10 +188,10 @@ class UserBookDaoTest {
                 LocalDateTime.now().plusWeeks(2),
                 LocalDateTime.now()
         ));
-        List<UserBook> actUserBooks = userBookDao.getAllBooksByUserID(1);
+        List<UserBook> actUserBooks = userBookDao.getAllBooksByUserID(2);
 
         //delete it and restore book quantity
-        userBookDao.deleteUserBookByUserIDAndBookID(1,2);
+        userBookDao.deleteUserBookByUserIDAndBookID(2,2);
 
         assertEquals(expUserBooks, actUserBooks);
 
@@ -202,11 +202,11 @@ class UserBookDaoTest {
      */
     @Test
     void deleteUserBookByUserIDAndBookID_normal() {
-        userBookDao.borrowBook(1, 2);
-        userBookDao.returnBook(1, 2);
+        userBookDao.borrowBook(2, 2);
+        userBookDao.returnBook(2, 2);
 
         int exp = 1;
-        int act = userBookDao.deleteUserBookByUserIDAndBookID(1, 2);
+        int act = userBookDao.deleteUserBookByUserIDAndBookID(2, 2);
 
         assertEquals(exp, act);
     }
@@ -228,15 +228,15 @@ class UserBookDaoTest {
     @Test
     void checkIfLate_normal() {
         //there is a user returning late, assume he is
-        userBookDao.checkIfLate(3, 4);
+        userBookDao.checkIfLate(1, 4);
 
         //the fee should be updated from 30 to 60
-        User user = userDao.getUserByID(3);
-        int exp = 120;
+        User user = userDao.getUserByID(1);
+        int exp = 60;
         int act = user.getFees();
 
         //revert the fee
-        userDao.updateFee(3, -30);
+        userDao.updateFee(1, -30);
 
         assertEquals(exp, act);
     }
@@ -251,7 +251,7 @@ class UserBookDaoTest {
 
         userBookDao.checkIfLate(1, 2);
         User user = userDao.getUserByID(1);
-        int exp = -60;
+        int exp = 30;
         int act = user.getFees();
 
         userBookDao.deleteUserBookByUserIDAndBookID(1, 2);
