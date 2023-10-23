@@ -6,8 +6,6 @@ CREATE TABLE users(
     address varchar(80),
     phone varchar(20),
     fees int not null,
-    secret varchar(32) not null,
-    salt varchar(44) not null,
     userType int not null,
     primary key(userID)
 );
