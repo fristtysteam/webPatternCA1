@@ -18,9 +18,6 @@ public class Dao {
      * @return connection
      */
     public Connection getConnection() {
-        if(con != null){
-            return con;
-        }
 
         String driver = "com.mysql.cj.jdbc.Driver";
         String url = "jdbc:mysql://localhost:3306/" + dbName;

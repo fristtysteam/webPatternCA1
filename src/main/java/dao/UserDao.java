@@ -17,7 +17,7 @@ public class UserDao extends Dao implements UserDaoInterface{
         String hashPassword = BCrypt.hashpw(password, BCrypt.gensalt());
 
         try{
-            String query = "INSERT INTO users(userName, email, password, address, phone, fees, secret, salt, userType) VALUES (?, ?, ?, ?, ?, 0, ?, ?, 0)";
+            String query = "INSERT INTO users(userName, email, password, address, phone, fees, userType) VALUES (?, ?, ?, ?, ?, 0, 0)";
             con = getConnection();
             ps = con.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1, username);
@@ -39,10 +39,10 @@ public class UserDao extends Dao implements UserDaoInterface{
         }
         catch(SQLException se){
             System.out.println(se.getMessage());
-            System.out.println("something went wrong");
+            System.out.println("something went wrong with registerUser");
         }
         finally {
-            freeConnection();
+            freeConnectionUpdate();
         }
 
         return user;
@@ -88,7 +88,7 @@ public class UserDao extends Dao implements UserDaoInterface{
         }
         catch(SQLException se){
             System.out.println(se.getMessage());
-            System.out.println("something went wrong");
+            System.out.println("something went wrong with loginUser");
         }
         finally {
             freeConnection();
@@ -133,7 +133,7 @@ public class UserDao extends Dao implements UserDaoInterface{
         }
         catch(SQLException se){
             System.out.println(se.getMessage());
-            System.out.println("something went wrong");
+            System.out.println("something went wrong with getUserByID");
         }
         finally {
             freeConnection();
@@ -156,7 +156,7 @@ public class UserDao extends Dao implements UserDaoInterface{
         }
         catch(SQLException se){
             System.out.println(se.getMessage());
-            System.out.println("something went wrong");
+            System.out.println("something went wrong with deleteUserByID");
         }
         finally {
             freeConnectionUpdate();
@@ -180,7 +180,7 @@ public class UserDao extends Dao implements UserDaoInterface{
         }
         catch(SQLException se){
             System.out.println(se.getMessage());
-            System.out.println("something went wrong");
+            System.out.println("something went wrong with updateFee");
         }
         finally {
             freeConnectionUpdate();
