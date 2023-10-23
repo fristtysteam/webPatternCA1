@@ -17,10 +17,10 @@ class UserDaoTest {
 
         User user = userDao.getUserByID(3);
 
-        assertEquals(user, act);
-
         userDao.deleteUserByID(3);
         userDao.updateIncrement("users", 3);
+        assertEquals(user, act);
+
     }
 
     /**
@@ -31,8 +31,8 @@ class UserDaoTest {
         User act = userDao.registerUser("jerry", "aabbcc@gmail.com",
                 "wefwef", "address", "sad");
 
-        assertNull(act);
         userDao.updateIncrement("users", 3);
+        assertNull(act);
     }
 
     /**
@@ -43,8 +43,8 @@ class UserDaoTest {
         User act = userDao.registerUser("jerryfcsd", "jerry@gmail.com",
                 "wefwef", "address", "sad");
 
-        assertNull(act);
         userDao.updateIncrement("users", 3);
+        assertNull(act);
     }
 
     /**
@@ -124,8 +124,8 @@ class UserDaoTest {
                 "wefwef", "address", "sad");
         int act = userDao.deleteUserByID(3);
 
-        assertEquals(exp, act);
         userDao.updateIncrement("users", 3);
+        assertEquals(exp, act);
 
     }
 
