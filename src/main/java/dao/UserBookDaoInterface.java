@@ -1,6 +1,6 @@
 package dao;
 
-import business.Book;
+import business.UserBook;
 
 import java.util.List;
 
@@ -11,14 +11,14 @@ public interface UserBookDaoInterface {
      * @param userID the user
      * @return lists of books
      */
-    public List<Book> getAllBooksByUserID(int userID);
+    List<UserBook> getAllBooksByUserID(int userID);
 
     /**
      * get all the current books borrowed by user
      * @param userID the user
      * @return lists of books
      */
-    public List<Book> getAllCurrentBooksByUserID(int userID);
+    List<UserBook> getAllCurrentBooksByUserID(int userID);
 
     /**
      * borrow a book, dueDate within next 2 weeks, quantity of book will be decreased
@@ -27,7 +27,7 @@ public interface UserBookDaoInterface {
      * @param bookID the bookID
      * @return 1 if success, 0 if fail
      */
-    public int borrowBook(int userID, int bookID);
+    int borrowBook(int userID, int bookID);
 
     /**
      * return a book, quantity restored
@@ -35,7 +35,7 @@ public interface UserBookDaoInterface {
      * @param bookID the bookID
      * @return 1 if success, 0 if fail
      */
-    public int returnBook(int userID, int bookID);
+    int returnBook(int userID, int bookID);
 
     /**
      * check for a duplicate borrow, you can only borrow one book at a time
@@ -43,7 +43,7 @@ public interface UserBookDaoInterface {
      * @param bookID the bookID
      * @return true if there are duplicates, false otherwise
      */
-    public boolean checkForDuplicateBorrow(int userID, int bookID);
+    boolean checkForDuplicateBorrow(int userID, int bookID);
 
     /**
      * deletes all records by the userID
@@ -51,13 +51,12 @@ public interface UserBookDaoInterface {
      * @param bookID the bookID
      * @return rows affected
      */
-    public int deleteUserBookByUserIDAndBookID(int userID, int bookID);
+    int deleteUserBookByUserIDAndBookID(int userID, int bookID);
 
     /**
      * check if the book is returned late or not
      * @param userID the userID
      * @param bookID the bookID
-     * @return true or false
      */
-    public boolean checkIfLate(int userID, int bookID);
+    void checkIfLate(int userID, int bookID);
 }

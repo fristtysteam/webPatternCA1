@@ -15,7 +15,7 @@ class UserDaoTest {
         User act = userDao.registerUser("aabbcc", "aabbcc@gmail.com",
                 "wefwef", "address", "sad");
 
-        User user = userDao.getUserByID(3);
+        User user = userDao.getUserByID(4);
 
         assertEquals(user.getUserID(), act.getUserID());
         assertEquals(user.getUserName(), act.getUserName());
@@ -28,8 +28,8 @@ class UserDaoTest {
         assertEquals(user.getSalt(), act.getSalt());
         assertEquals(user.getUserType(), act.getUserType());
 
-        userDao.deleteUserByID(3);
-        userDao.updateIncrement("users", 3);
+        userDao.deleteUserByID(4);
+        userDao.updateIncrement("users", 4);
     }
 
     /**
@@ -62,7 +62,7 @@ class UserDaoTest {
     @Test
     void loginUser_normal() {
         User user = new User(1, "jerry", "jerry@gmail.com", "rippleMMW1$",
-                "address", "231030213", 30,
+                "address", "231030213", -60,
                 "OYYdUyE9lGfw3Gb8/m59KALhcTL2scX/", "99G8d2K9vXql2YyHPw++fzn+UgPbS+vu/kyzvBfXzSk=", 0);
         User act = userDao.loginUser("jerry@gmail.com", "rippleMMW1$");
 
@@ -104,7 +104,7 @@ class UserDaoTest {
     @Test
     void getUserByID_normal() {
         User user = new User(1, "jerry", "jerry@gmail.com", "rippleMMW1$",
-                "address", "231030213", 30,
+                "address", "231030213", -60,
                 "OYYdUyE9lGfw3Gb8/m59KALhcTL2scX/", "99G8d2K9vXql2YyHPw++fzn+UgPbS+vu/kyzvBfXzSk=", 0);
         User act = userDao.getUserByID(1);
 
@@ -138,10 +138,10 @@ class UserDaoTest {
         int exp = 1;
         userDao.registerUser("aabbcc", "aabbcc@gmail.com",
                 "wefwef", "address", "sad");
-        int act = userDao.deleteUserByID(3);
+        int act = userDao.deleteUserByID(4);
 
         assertEquals(exp, act);
-        userDao.updateIncrement("users", 3);
+        userDao.updateIncrement("users", 4);
 
     }
 
@@ -154,5 +154,22 @@ class UserDaoTest {
         int act = userDao.deleteUserByID(100);
 
         assertEquals(exp, act);
+    }
+
+    /**
+     * updateFee, normal
+     */
+    @Test
+    void updateFee_normal() {
+        assertEquals(1, userDao.updateFee(1, 20));
+        assertEquals(1, userDao.updateFee(1, -20));
+    }
+
+    /**
+     * updateFee, but no valid ID
+     */
+    @Test
+    void updateFee_no_valid_ID() {
+        assertEquals(0, userDao.updateFee(100, 20));
     }
 }
