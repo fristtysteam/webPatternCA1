@@ -102,7 +102,7 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
         int rowsAffected = 0;
 
         //fail fast methods
-        if(book.getQuantity() - 1 < 1 || checkForDuplicateBorrow(userID, bookID)){
+        if(book.getQuantity() - 1 < 0 || checkForDuplicateBorrow(userID, bookID)){
             return rowsAffected;
         }
 
