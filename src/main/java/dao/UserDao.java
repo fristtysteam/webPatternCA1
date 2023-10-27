@@ -3,6 +3,10 @@ package dao;
 import java.sql.SQLException;
 import java.sql.Statement;
 import business.User;
+import exceptions.DuplicateEmailException;
+import exceptions.DuplicateUsernameException;
+import exceptions.InvalidEmailException;
+import exceptions.InvalidPasswordException;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class UserDao extends Dao implements UserDaoInterface{
@@ -12,6 +16,15 @@ public class UserDao extends Dao implements UserDaoInterface{
 
     @Override
     public User registerUser(String username, String email, String password, String address, String phone) {
+
+        //fail fast
+        if(checkUsername(username)){
+            throw new DuplicateUsernameException("duplicate username");
+        }
+        if(checkEmail(email)){
+            throw new DuplicateEmailException("duplicate email");
+        }
+
         int newId;
         User user = null;
         String hashPassword = BCrypt.hashpw(password, BCrypt.gensalt());
@@ -50,6 +63,12 @@ public class UserDao extends Dao implements UserDaoInterface{
 
     @Override
     public User loginUser(String email, String password) {
+
+        //fail fast
+        if(!checkEmail(email)){
+            throw new InvalidEmailException("no email found");
+        }
+
         int newId;
         String username;
         String hashPass;
@@ -82,6 +101,9 @@ public class UserDao extends Dao implements UserDaoInterface{
                     userType = rs.getInt("userType");
 
                     user = new User(newId, username, email, password, address, phone, fees, userType);
+                }
+                else{
+                    throw new InvalidPasswordException("password does not match");
                 }
             }
 
@@ -187,5 +209,55 @@ public class UserDao extends Dao implements UserDaoInterface{
         }
 
         return rowsAffected;
+    }
+
+    @Override
+    public boolean checkUsername(String username) {
+        try{
+            String query = "SELECT * FROM users WHERE username = ?";
+            con = getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, username);
+
+            rs = ps.executeQuery();
+            //if there is, means there actually is one
+            if(rs.next()){
+                return true;
+            }
+
+        }
+        catch(SQLException se){
+            System.out.println(se.getMessage());
+            System.out.println("something went wrong with updateFee");
+        }
+        finally {
+            freeConnection();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean checkEmail(String email) {
+        try{
+            String query = "SELECT * FROM users WHERE email = ?";
+            con = getConnection();
+            ps = con.prepareStatement(query);
+            ps.setString(1, email);
+
+            rs = ps.executeQuery();
+            //if there is, means there actually is one
+            if(rs.next()){
+                return true;
+            }
+
+        }
+        catch(SQLException se){
+            System.out.println(se.getMessage());
+            System.out.println("something went wrong with updateFee");
+        }
+        finally {
+            freeConnection();
+        }
+        return false;
     }
 }

@@ -47,4 +47,20 @@ public interface UserDaoInterface {
      * @return number of rows affected
      */
     int updateFee(int userID, int fee);
+
+    /**
+     * check a username, this can determine whether it exists or not, could used to check
+     * duplicates or a new unique name
+     * @param username the username
+     * @return true(more than one) or false(none)
+     */
+    boolean checkUsername(String username);
+
+    /**
+     * check email, to check for a duplicate or a new email
+     * @param email the email
+     * @return true(more than one) or false(none)
+     */
+    boolean checkEmail(String email);
+
 }

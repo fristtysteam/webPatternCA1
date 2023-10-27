@@ -1,6 +1,10 @@
 package dao;
 
 import business.User;
+import exceptions.DuplicateEmailException;
+import exceptions.DuplicateUsernameException;
+import exceptions.InvalidEmailException;
+import exceptions.InvalidPasswordException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,11 +32,12 @@ class UserDaoTest {
      */
     @Test
     void registerUser_fail_usernameDuplicate() {
-        User act = userDao.registerUser("jerry", "aabbcc@gmail.com",
-                "wefwef", "address", "sad");
+        assertThrows(DuplicateUsernameException.class,
+                ()-> userDao.registerUser("jerry", "aabbcc@gmail.com",
+                "wefwef", "address", "sad"));
 
         userDao.updateIncrement("users", 3);
-        assertNull(act);
+
     }
 
     /**
@@ -40,11 +45,11 @@ class UserDaoTest {
      */
     @Test
     void registerUser_fail_emailDuplicate() {
-        User act = userDao.registerUser("jerryfcsd", "jerry@gmail.com",
-                "wefwef", "address", "sad");
+        assertThrows(DuplicateEmailException.class,
+                ()->userDao.registerUser("jerryfcsd", "jerry@gmail.com",
+                        "wefwef", "address", "sad"));
 
         userDao.updateIncrement("users", 3);
-        assertNull(act);
     }
 
     /**
@@ -71,9 +76,8 @@ class UserDaoTest {
      */
     @Test
     void loginUser_fail_password() {
-        User act = userDao.loginUser("jerry@gmail.com", "aadfsa");
-
-        assertNull(act);
+        assertThrows(InvalidPasswordException.class,
+                ()->userDao.loginUser("jerry@gmail.com", "aadfsa"));
     }
 
     /**
@@ -81,9 +85,8 @@ class UserDaoTest {
      */
     @Test
     void loginUser_fail_email() {
-        User act = userDao.loginUser("jerryfwsef@gmail.com", "aadfsa");
-
-        assertNull(act);
+        assertThrows(InvalidEmailException.class,
+                ()->userDao.loginUser("jerryfwsef@gmail.com", "aadfsa"));
     }
 
     /**
@@ -156,4 +159,39 @@ class UserDaoTest {
     void updateFee_no_valid_ID() {
         assertEquals(0, userDao.updateFee(100, 20));
     }
+
+    /**
+     * checkUsername, there is a username
+     */
+    @Test
+    void checkUsername_thereIs(){
+        assertTrue(userDao.checkUsername("jerry"));
+    }
+
+    /**
+     * checkUsername, there is not a username
+     */
+    @Test
+    void checkUsername_thereIs_not(){
+        assertFalse(userDao.checkUsername("jerrgergrywg"));
+    }
+
+    /**
+     * checkEmail, there is an email
+     */
+    @Test
+    void checkEmail_thereIs(){
+        assertTrue(userDao.checkEmail("jerry@gmail.com"));
+    }
+
+    /**
+     * checkEmail, there is no email
+     */
+    @Test
+    void checkEmail_thereIs_not(){
+        assertTrue(userDao.checkEmail("jerry@gmail.com"));
+    }
+
+
+
 }
