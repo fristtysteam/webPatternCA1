@@ -15,7 +15,7 @@ public interface UserDaoInterface {
      * @param phone the phone number
      * @return the user
      */
-    public User registerUser(String username, String email, String password, String address, String phone) throws NoSuchAlgorithmException;
+    User registerUser(String username, String email, String password, String address, String phone) throws NoSuchAlgorithmException;
 
     /**
      * login the user
@@ -23,7 +23,7 @@ public interface UserDaoInterface {
      * @param password the password
      * @return the user
      */
-    public User loginUser(String email, String password);
+    User loginUser(String email, String password);
 
 
     /**
@@ -31,13 +31,36 @@ public interface UserDaoInterface {
      * @param userID the userID
      * @return the user
      */
-    public User getUserByID(int userID);
+    User getUserByID(int userID);
 
     /**
      * delete the user by ID
      * @param userID the userID
      * @return rows affected
      */
-    public int deleteUserByID(int userID);
+    int deleteUserByID(int userID);
+
+    /**
+     * add or subtract fee to the user
+     * @param userID the userID
+     * @param fee fee to add or reduce (+/-)
+     * @return number of rows affected
+     */
+    int updateFee(int userID, int fee);
+
+    /**
+     * check a username, this can determine whether it exists or not, could used to check
+     * duplicates or a new unique name
+     * @param username the username
+     * @return true(more than one) or false(none)
+     */
+    boolean checkUsername(String username);
+
+    /**
+     * check email, to check for a duplicate or a new email
+     * @param email the email
+     * @return true(more than one) or false(none)
+     */
+    boolean checkEmail(String email);
 
 }

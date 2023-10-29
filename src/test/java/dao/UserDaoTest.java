@@ -1,6 +1,10 @@
 package dao;
 
 import business.User;
+import exceptions.DuplicateEmailException;
+import exceptions.DuplicateUsernameException;
+import exceptions.InvalidEmailException;
+import exceptions.InvalidPasswordException;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -17,19 +21,10 @@ class UserDaoTest {
 
         User user = userDao.getUserByID(3);
 
-        assertEquals(user.getUserID(), act.getUserID());
-        assertEquals(user.getUserName(), act.getUserName());
-        assertEquals(user.getEmail(), act.getEmail());
-        assertEquals(user.getPassword(), act.getPassword());
-        assertEquals(user.getAddress(), act.getAddress());
-        assertEquals(user.getPhone(), act.getPhone());
-        assertEquals(user.getFees(), act.getFees());
-        assertEquals(user.getSecret(), act.getSecret());
-        assertEquals(user.getSalt(), act.getSalt());
-        assertEquals(user.getUserType(), act.getUserType());
-
         userDao.deleteUserByID(3);
         userDao.updateIncrement("users", 3);
+        assertEquals(user, act);
+
     }
 
     /**
@@ -37,11 +32,12 @@ class UserDaoTest {
      */
     @Test
     void registerUser_fail_usernameDuplicate() {
-        User act = userDao.registerUser("jerry", "aabbcc@gmail.com",
-                "wefwef", "address", "sad");
+        assertThrows(DuplicateUsernameException.class,
+                ()-> userDao.registerUser("jerry", "aabbcc@gmail.com",
+                "wefwef", "address", "sad"));
 
-        assertNull(act);
         userDao.updateIncrement("users", 3);
+
     }
 
     /**
@@ -49,10 +45,10 @@ class UserDaoTest {
      */
     @Test
     void registerUser_fail_emailDuplicate() {
-        User act = userDao.registerUser("jerryfcsd", "jerry@gmail.com",
-                "wefwef", "address", "sad");
+        assertThrows(DuplicateEmailException.class,
+                ()->userDao.registerUser("jerryfcsd", "jerry@gmail.com",
+                        "wefwef", "address", "sad"));
 
-        assertNull(act);
         userDao.updateIncrement("users", 3);
     }
 
@@ -62,8 +58,7 @@ class UserDaoTest {
     @Test
     void loginUser_normal() {
         User user = new User(1, "jerry", "jerry@gmail.com", "rippleMMW1$",
-                "address", "231030213", 30,
-                "OYYdUyE9lGfw3Gb8/m59KALhcTL2scX/", "99G8d2K9vXql2YyHPw++fzn+UgPbS+vu/kyzvBfXzSk=", 0);
+                "address", "231030213", 30, 0);
         User act = userDao.loginUser("jerry@gmail.com", "rippleMMW1$");
 
         assertEquals(user.getUserID(), act.getUserID());
@@ -73,8 +68,6 @@ class UserDaoTest {
         assertEquals(user.getAddress(), act.getAddress());
         assertEquals(user.getPhone(), act.getPhone());
         assertEquals(user.getFees(), act.getFees());
-        assertEquals(user.getSecret(), act.getSecret());
-        assertEquals(user.getSalt(), act.getSalt());
         assertEquals(user.getUserType(), act.getUserType());
     }
 
@@ -83,9 +76,8 @@ class UserDaoTest {
      */
     @Test
     void loginUser_fail_password() {
-        User act = userDao.loginUser("jerry@gmail.com", "aadfsa");
-
-        assertNull(act);
+        assertThrows(InvalidPasswordException.class,
+                ()->userDao.loginUser("jerry@gmail.com", "aadfsa"));
     }
 
     /**
@@ -93,9 +85,8 @@ class UserDaoTest {
      */
     @Test
     void loginUser_fail_email() {
-        User act = userDao.loginUser("jerryfwsef@gmail.com", "aadfsa");
-
-        assertNull(act);
+        assertThrows(InvalidEmailException.class,
+                ()->userDao.loginUser("jerryfwsef@gmail.com", "aadfsa"));
     }
 
     /**
@@ -104,19 +95,15 @@ class UserDaoTest {
     @Test
     void getUserByID_normal() {
         User user = new User(1, "jerry", "jerry@gmail.com", "rippleMMW1$",
-                "address", "231030213", 30,
-                "OYYdUyE9lGfw3Gb8/m59KALhcTL2scX/", "99G8d2K9vXql2YyHPw++fzn+UgPbS+vu/kyzvBfXzSk=", 0);
+                "address", "231030213", 30, 0);
         User act = userDao.getUserByID(1);
 
         assertEquals(user.getUserID(), act.getUserID());
         assertEquals(user.getUserName(), act.getUserName());
         assertEquals(user.getEmail(), act.getEmail());
-        assertEquals(user.getPassword(), act.getPassword());
         assertEquals(user.getAddress(), act.getAddress());
         assertEquals(user.getPhone(), act.getPhone());
         assertEquals(user.getFees(), act.getFees());
-        assertEquals(user.getSecret(), act.getSecret());
-        assertEquals(user.getSalt(), act.getSalt());
         assertEquals(user.getUserType(), act.getUserType());
     }
 
@@ -140,8 +127,8 @@ class UserDaoTest {
                 "wefwef", "address", "sad");
         int act = userDao.deleteUserByID(3);
 
-        assertEquals(exp, act);
         userDao.updateIncrement("users", 3);
+        assertEquals(exp, act);
 
     }
 
@@ -155,4 +142,56 @@ class UserDaoTest {
 
         assertEquals(exp, act);
     }
+
+    /**
+     * updateFee, normal
+     */
+    @Test
+    void updateFee_normal() {
+        assertEquals(1, userDao.updateFee(1, 20));
+        assertEquals(1, userDao.updateFee(1, -20));
+    }
+
+    /**
+     * updateFee, but no valid ID
+     */
+    @Test
+    void updateFee_no_valid_ID() {
+        assertEquals(0, userDao.updateFee(100, 20));
+    }
+
+    /**
+     * checkUsername, there is a username
+     */
+    @Test
+    void checkUsername_thereIs(){
+        assertTrue(userDao.checkUsername("jerry"));
+    }
+
+    /**
+     * checkUsername, there is not a username
+     */
+    @Test
+    void checkUsername_thereIs_not(){
+        assertFalse(userDao.checkUsername("jerrgergrywg"));
+    }
+
+    /**
+     * checkEmail, there is an email
+     */
+    @Test
+    void checkEmail_thereIs(){
+        assertTrue(userDao.checkEmail("jerry@gmail.com"));
+    }
+
+    /**
+     * checkEmail, there is no email
+     */
+    @Test
+    void checkEmail_thereIs_not(){
+        assertTrue(userDao.checkEmail("jerry@gmail.com"));
+    }
+
+
+
 }

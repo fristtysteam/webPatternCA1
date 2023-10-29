@@ -9,11 +9,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Bookdao extends Dao implements BookDaoInterface {
+public class BookDao extends Dao implements BookDaoInterface {
 
-    public Bookdao(String dbName) {
+    public BookDao(String dbName) {
         super(dbName);
     }
+    public BookDao(Connection con) {super(con); }
 
     /**
      * Get a list of all books in the library.
