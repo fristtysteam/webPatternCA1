@@ -26,6 +26,11 @@ public interface BookDaoInterface {
      */
     public int updateBookQuantity(int bookID, boolean increase);
 
+    public int addBook (Book book);
+
+    public int deleteBook(int bookID);
+
+
 }
 
 
