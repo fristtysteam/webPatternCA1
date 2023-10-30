@@ -41,7 +41,6 @@ public class BookDao extends Dao implements BookDaoInterface {
                 ));
             }
         } catch (SQLException e) {
-            // Handle or log the exception
             e.printStackTrace();
         }
 
@@ -77,7 +76,6 @@ public class BookDao extends Dao implements BookDaoInterface {
                 }
             }
         } catch (SQLException e) {
-            // Handle or log the exception
             e.printStackTrace();
         }
 
@@ -93,8 +91,8 @@ public class BookDao extends Dao implements BookDaoInterface {
      */
     @Override
     public int updateBookQuantity(int bookID, boolean increase) {
-        String query = increase ? "UPDATE books SET quantity = quantity + 1 WHERE bookID = ?"
-                : "UPDATE books SET quantity = quantity - 1 WHERE bookID = ?";
+        String query = increase ? "UPDATE books SET quantity = quantity + 1 WHERE bookID = ?" :
+                "UPDATE books SET quantity = quantity - 1 WHERE bookID = ?";
         int rowsAffected = 0;
 
         try (Connection con = getConnection();
@@ -103,7 +101,44 @@ public class BookDao extends Dao implements BookDaoInterface {
             ps.setInt(1, bookID);
             rowsAffected = ps.executeUpdate();
         } catch (SQLException e) {
-            // Handle or log the exception
+            e.printStackTrace();
+        }
+
+        return rowsAffected;
+    }
+
+
+@Override
+    public int addBook(Book book) {
+        String query = "INSERT INTO books (bookName, author, description, quantity) VALUES (?, ?, ?, ?)";
+        int rowsAffected = 0;
+
+        try (Connection con = getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setString(1, book.getBookName());
+            ps.setString(2, book.getAuthor());
+            ps.setString(3, book.getDescription());
+            ps.setInt(4, book.getQuantity());
+
+            rowsAffected = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return rowsAffected;
+    }
+    @Override
+    public int deleteBook(int bookID) {
+        String query = "DELETE FROM books WHERE bookID = ?";
+        int rowsAffected = 0;
+
+        try (Connection con = getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setInt(1, bookID);
+            rowsAffected = ps.executeUpdate();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
