@@ -81,7 +81,7 @@ class UserBookDaoTest {
         List<UserBook> expUserBooks = new ArrayList<>();
         expUserBooks.add(new UserBook(
                 user,
-                bookDao.getBookByID(2),
+                bookDao.getBookByID(1),
                 LocalDateTime.now(),
                 LocalDateTime.now().plusWeeks(2),
                 null
@@ -101,16 +101,10 @@ class UserBookDaoTest {
      */
     @Test
     void getAllCurrentBooksByUserID_no_books() {
-        //simulate borrow, not returned
-        userBookDao.borrowBook(2, 1);
 
         //checking
         List<UserBook> expBooks = new ArrayList<>();
         List<UserBook> actBooks = userBookDao.getAllCurrentBooksByUserID(2);
-
-        //delete it and restore book quantity
-        userBookDao.deleteUserBookByUserIDAndBookID(2,1);
-        bookDao.updateBookQuantity(1, true);
 
         assertEquals(expBooks, actBooks);
     }

@@ -67,7 +67,7 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
         List<UserBook> userBooks = new ArrayList<>();
 
         try{
-            String query = "SELECT * FROM userbooks WHERE userID = ? AND borrowDate < dueDate AND returnedDate is not null";
+            String query = "SELECT * FROM userbooks WHERE userID = ? AND borrowDate < dueDate AND returnedDate is null";
             con = getConnection();
             ps = con.prepareStatement(query);
             ps.setInt(1, userID);
@@ -80,7 +80,7 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
                                 bookDao.getBookByID(rs.getInt("bookID")),
                                 rs.getTimestamp("borrowDate").toLocalDateTime(),
                                 rs.getTimestamp("dueDate").toLocalDateTime(),
-                                rs.getTimestamp("returnedDate").toLocalDateTime()
+                                null
                         )
                 );
             }
