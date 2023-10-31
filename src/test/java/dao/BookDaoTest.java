@@ -1,20 +1,32 @@
 package dao;
 
+import business.Book;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
+import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
-class BookDaoTest {
 
-    @Test
-    void getAllBooks() {
-        System.out.println("test");
-    }
+public class BookDaoTest {
+    private BookDaoStub bookDao;
 
-    @Test
-    void getBookByID() {
-    }
+    class BookDaoStub extends BookDao {
+        public BookDaoStub() {
+            super("test_library");
+        }
 
-    @Test
-    void updateBookQuantity() {
+
+        @BeforeEach
+        void setUp() {
+            bookDao = new BookDaoStub();
+        }
+
+        @Test
+        void testGetAllBooks() {
+            List<Book> books = bookDao.getAllBooks();
+            assertNotNull(books);
+            assertEquals(2, books.size());
+            assertEquals("Book 1", books.get(0).getBookName());
+            assertEquals("Book 2", books.get(1).getBookName());
+        }
     }
 }
