@@ -30,18 +30,17 @@ public class BookGenreDao extends Dao implements BookGenreDaoInterface {
     public List<Genre> getGenreByBookID(int bookID) {
         String query = "SELECT * FROM bookgenres WHERE bookID = ?";
         List<Genre> genres = new ArrayList<>();
+        GenreDao genreDao = new GenreDao(dbName);
+
         try (Connection con = getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
             ps.setInt(1, bookID);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-               Genre genre = new Genre(
-                        rs.getInt("genreID"),
-                        rs.getString("genreName")
-               );
 
-                genres.add(genre);
+
+                genres.add(genreDao.getGenreByID(rs.getInt("genreID")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -56,7 +55,7 @@ public class BookGenreDao extends Dao implements BookGenreDaoInterface {
     public List<Book> getBooksByGenre(String genreName) {
         List<Book> books = new ArrayList<>();
         String query = "SELECT * FROM bookgenres WHERE genreID = (select genreID from genres where genreName = ?)";
-
+        BookDao bookDao = new BookDao(dbName);
 
         try (Connection con = getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
@@ -64,14 +63,8 @@ public class BookGenreDao extends Dao implements BookGenreDaoInterface {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
-                Book book = new Book(
-                        rs.getInt("bookID"),
-                        rs.getString("bookName"),
-                        rs.getString("author"),
-                        rs.getString("description"),
-                        rs.getInt("quantity")
-                );
-                books.add(book);
+
+                books.add(bookDao.getBookByID(rs.getInt("bookID")));
             }
         } catch (SQLException e) {
             e.printStackTrace();
