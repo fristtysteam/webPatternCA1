@@ -5,23 +5,23 @@ import java.util.Objects;
 
 public class BookGenre{
 
-    private Book bookId;
+    private int bookID;
     private Genre genreID;
 
-    public BookGenre(Book bookId, Genre genreID) {
-        this.bookId = bookId;
+    public BookGenre(int bookID, Genre genreID) {
+        this.bookID = bookID;
         this.genreID = genreID;
     }
 
     public BookGenre() {
     }
 
-    public Book getBookId() {
-        return bookId;
+    public int getBookID() {
+        return bookID;
     }
 
-    public void setBookId(Book bookId) {
-        this.bookId = bookId;
+    public void setBookID(int bookID) {
+        this.bookID = bookID;
     }
 
     public Genre getGenreID() {
@@ -37,18 +37,18 @@ public class BookGenre{
         if (this == o) return true;
         if (!(o instanceof BookGenre)) return false;
         BookGenre bookGenre = (BookGenre) o;
-        return Objects.equals(getBookId(), bookGenre.getBookId());
+        return Objects.equals(getBookID(), bookGenre.getBookID());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getBookId(), getGenreID());
+        return Objects.hash(getBookID(), getGenreID());
     }
 
     @Override
     public String toString() {
         return "BookGenre{" +
-                "bookId=" + bookId +
+                "bookId=" + bookID +
                 ", genreID=" + genreID +
                 '}';
     }
