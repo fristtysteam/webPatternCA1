@@ -42,7 +42,10 @@ public class BookDao extends Dao implements BookDaoInterface {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            freeConnection();
         }
+
 
         return books;
     }
@@ -77,7 +80,10 @@ public class BookDao extends Dao implements BookDaoInterface {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            freeConnection();
         }
+
 
         return book;
     }
@@ -102,6 +108,8 @@ public class BookDao extends Dao implements BookDaoInterface {
             rowsAffected = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            freeConnectionUpdate();
         }
 
         return rowsAffected;
@@ -124,6 +132,8 @@ public class BookDao extends Dao implements BookDaoInterface {
             rowsAffected = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            freeConnection();
         }
 
         return rowsAffected;
@@ -140,6 +150,8 @@ public class BookDao extends Dao implements BookDaoInterface {
             rowsAffected = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+        }finally {
+            freeConnection();
         }
 
         return rowsAffected;

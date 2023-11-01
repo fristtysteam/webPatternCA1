@@ -42,6 +42,8 @@ public class GenreDao extends Dao implements GenreDaoInterface {
         } catch (SQLException e) {
             // Handle or log the exception
             e.printStackTrace();
+        }       finally {
+            freeConnection();
         }
 
         return genres;
@@ -75,6 +77,8 @@ public class GenreDao extends Dao implements GenreDaoInterface {
         } catch (SQLException e) {
             // Handle or log the exception
             e.printStackTrace();
+        }        finally {
+            freeConnection();
         }
 
         return genre;
