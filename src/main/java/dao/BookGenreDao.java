@@ -24,77 +24,31 @@ public class BookGenreDao extends Dao implements BookGenreDaoInterface {
     //FOREIGN KEY(genreID) REFERENCES genres(genreID)
 
 
-    //addBookGenre
-    public int addBookGenre(BookGenre bookGenre) {
-        String query = "INSERT INTO bookgenres (bookID,genreID) VALUES (?, ?)";
-        int rowsAffected = 0;
 
+
+    @Override
+    public List<Genre> getGenreByBookID(int bookID) {
+        String query = "SELECT * FROM bookgenres WHERE bookID = ?";
+        List<Genre> genres = new ArrayList<>();
         try (Connection con = getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setInt(1, bookID);
+            ResultSet rs = ps.executeQuery();
 
-            ps.setInt(1, bookGenre.getBookID());
-            ps.setInt(2, bookGenre.getGenreID().getGenreID());
+            while (rs.next()) {
+               Genre genre = new Genre(
+                        rs.getInt("genreID"),
+                        rs.getString("genreName")
+               );
 
-            rowsAffected = ps.executeUpdate();
+                genres.add(genre);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            freeConnectionUpdate();
-        }
-
-        return rowsAffected;
-    }
-
-    //deleteBookGenre
-
-    public int deleteBookGenreByID(int genreID) {
-        int rowsAffected = 0;
-        try {
-            String query = "DELETE FROM bookgenres WHERE genreID = ?";
-            con = getConnection();
-            ps = con.prepareStatement(query);
-            ps.setInt(1, genreID);
-
-            rowsAffected = ps.executeUpdate();
-
-        } catch (SQLException se) {
-            System.out.println(se.getMessage());
-            System.out.println("Failed to Delete Book genre");
-        } finally {
-            freeConnectionUpdate();
-        }
-
-        return rowsAffected;
-    }
-    //getDuplicateGenre
-
-    public boolean checkForDuplicate(int genreID, int bookID) {
-        int count;
-        boolean flag = false;
-
-        try {
-            String query = "SELECT count(*) FROM bookgenres WHERE genreID = ? AND bookID = ?";
-            con = getConnection();
-            ps = con.prepareStatement(query);
-            ps.setInt(1, genreID);
-            ps.setInt(2, bookID);
-            rs = ps.executeQuery();
-
-            if (rs.next()) {
-                count = rs.getInt(1);
-                if (count >= 1) {
-                    flag = true;
-                }
-            }
-
-        } catch (SQLException se) {
-            System.out.println(se.getMessage());
-            System.out.println("duplicate error");
-        } finally {
             freeConnection();
         }
-
-        return flag;
+        return genres;
     }
 
 
