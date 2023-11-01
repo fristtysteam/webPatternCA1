@@ -49,10 +49,44 @@ class BookDaoIsolationTest {
     }
 
     @Test
-    void getBookByID() {
+    void getBookByID() throws SQLException {
+        Dao.mock = true;
+        Book expectedBook = new Book(1, "titleA", "me", "desc", 10);
+
+        Connection dbConn = mock(Connection.class);
+        PreparedStatement ps = mock(PreparedStatement.class);
+        ResultSet rs = mock(ResultSet.class);
+
+        when(dbConn.prepareStatement("SELECT * FROM books WHERE bookID = ?")).thenReturn(ps);
+        when(ps.executeQuery()).thenReturn(rs);
+
+        when(rs.next()).thenReturn(true, false);
+        when(rs.getInt("bookID")).thenReturn(expectedBook.getBookID());
+        when(rs.getString("bookName")).thenReturn(expectedBook.getBookName());
+        when(rs.getString("author")).thenReturn(expectedBook.getAuthor());
+        when(rs.getString("description")).thenReturn(expectedBook.getDescription());
+        when(rs.getInt("quantity")).thenReturn(expectedBook.getQuantity());
+
+        BookDao bookDao = new BookDao(dbConn);
+        Book result = bookDao.getBookByID(1);
+
+        Dao.mock = false;
+        assertEquals(expectedBook, result);
     }
 
     @Test
     void updateBookQuantity() {
+
+
+
     }
+    @Test
+    void addBook() {
+
+    }
+    @Test
+    void deleteBook() {
+
+    }
+
 }

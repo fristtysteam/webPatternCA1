@@ -6,27 +6,61 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
-public class BookDaoTest {
-    private BookDaoStub bookDao;
+class BookDaoTest {
 
-    class BookDaoStub extends BookDao {
-        public BookDaoStub() {
-            super("test_library");
-        }
+    private BookDao bookDao;
 
-
-        @BeforeEach
-        void setUp() {
-            bookDao = new BookDaoStub();
-        }
-
-        @Test
-        void testGetAllBooks() {
-            List<Book> books = bookDao.getAllBooks();
-            assertNotNull(books);
-            assertEquals(2, books.size());
-            assertEquals("Book 1", books.get(0).getBookName());
-            assertEquals("Book 2", books.get(1).getBookName());
-        }
+    @BeforeEach
+    void setUp() {
+        bookDao = new BookDao("testLibrary");
     }
-}
+
+    @Test
+    void getAllBooks() {
+        List<Book> books = bookDao.getAllBooks();
+
+        assertFalse(books.isEmpty());
+    }
+
+    @Test
+    void getBookByID() {
+        // Replace '1' with a valid book ID from your test database
+        int bookID = 1;
+        Book book = bookDao.getBookByID(bookID);
+
+        assertNotNull(book);
+        assertEquals(bookID, book.getBookID());
+    }
+
+    @Test
+    void updateBookQuantity() {
+        int bookID = 1;
+
+        int rowsIncreased = bookDao.updateBookQuantity(bookID, true);
+        assertEquals(1, rowsIncreased);
+
+        int rowsDecreased = bookDao.updateBookQuantity(bookID, false);
+        assertEquals(1, rowsDecreased);
+    }
+
+    @Test
+    void addBook() {
+        Book newBook = new Book(6,"The Book", "Matt", "The only book you will ever need", 5);
+        int rowsAffected = bookDao.addBook(newBook);
+
+        assertEquals(1, rowsAffected);
+
+        int bookID = newBook.getBookID();
+        bookDao.deleteBook(bookID);
+    }
+
+    @Test
+    void deleteBook() {
+        Book newBook = new Book(3,"To Be Deleted", "Author", "Description", 3);
+        bookDao.addBook(newBook);
+
+        int bookID = newBook.getBookID();
+        int rowsAffected = bookDao.deleteBook(bookID);
+        assertEquals(1, rowsAffected);
+    }
+    }
