@@ -4,7 +4,6 @@ import business.Book;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
 import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,7 +39,7 @@ class BookDaoTest {
         int bookID = 100;
         Book book = bookDao.getBookByID(bookID);
 
-        assertEquals(null, book);
+        assertNull(book);
     }
 
     @Test
@@ -58,9 +57,9 @@ class BookDaoTest {
     void updateBookMoreThanQuantity() {
         int bookID = 1;
 
-        int rowsDecrease = bookDao.updateBookQuantity(bookID, -100000);
+        bookDao.updateBookQuantity(bookID, -100000);
         Book newBook = (bookDao.getBookByID(1));
-        int rowIncrease = bookDao.updateBookQuantity(1, 1000);
+        bookDao.updateBookQuantity(1, 1000);
 
         assertEquals(0, newBook.getQuantity());
 
@@ -70,7 +69,8 @@ class BookDaoTest {
     void addBook() {
         Book newBook = new Book(6, "The Book", "Matt", "The only book you will ever need", 5);
         int rowsAffected = bookDao.addBook(newBook);
-
+        bookDao.deleteBook(6);
+        bookDao.updateIncrement("books", 6);
         assertEquals(1, rowsAffected);
 
         int bookID = newBook.getBookID();
