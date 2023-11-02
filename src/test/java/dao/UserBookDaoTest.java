@@ -38,7 +38,7 @@ class UserBookDaoTest {
 
         //delete it and restore book quantity
         userBookDao.deleteUserBookByUserIDAndBookID(2,1);
-        bookDao.updateBookQuantity(1, true);
+        bookDao.updateBookQuantity(1, 1);
 
         assertEquals(expUserBooks, actUserBooks);
 
@@ -90,7 +90,7 @@ class UserBookDaoTest {
 
         //delete it and restore book quantity
         userBookDao.deleteUserBookByUserIDAndBookID(2,1);
-        bookDao.updateBookQuantity(1, true);
+        bookDao.updateBookQuantity(1, 1);
         userBookDao.deleteUserBookByUserIDAndBookID(2,2);
 
         assertEquals(expUserBooks, actUserBooks);
@@ -130,7 +130,7 @@ class UserBookDaoTest {
 
         //delete it and restore book quantity
         userBookDao.deleteUserBookByUserIDAndBookID(2,1);
-        bookDao.updateBookQuantity(1, true);
+        bookDao.updateBookQuantity(1, 1);
 
         assertEquals(expUserBooks, actUserBooks);
         assertEquals(expUserBooks.get(0).getReturnedDate(), actUserBooks.get(0).getReturnedDate());
@@ -159,7 +159,7 @@ class UserBookDaoTest {
 
         //delete it and restore book quantity
         userBookDao.deleteUserBookByUserIDAndBookID(2,1);
-        bookDao.updateBookQuantity(1, true);
+        bookDao.updateBookQuantity(1, 1);
 
         assertEquals(expUserBooks, actUserBooks);
     }

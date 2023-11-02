@@ -47,11 +47,23 @@ class BookDaoTest {
     void updateBookQuantity() {
         int bookID = 1;
 
-        int rowsIncreased = bookDao.updateBookQuantity(bookID, true);
+        int rowsIncreased = bookDao.updateBookQuantity(bookID, 1);
+        int rowsDecrease = bookDao.updateBookQuantity(bookID, -1);
+        assertEquals(1,rowsDecrease);
         assertEquals(1, rowsIncreased);
 
-        int rowsDecreased = bookDao.updateBookQuantity(bookID, false);
-        assertEquals(1, rowsDecreased);
+    }
+
+    @Test
+    void updateBookMoreThanQuantity() {
+        int bookID = 1;
+
+        int rowsDecrease = bookDao.updateBookQuantity(bookID, -100000);
+        Book newBook = (bookDao.getBookByID(1));
+        int rowIncrease = bookDao.updateBookQuantity(1, 1000);
+
+        assertEquals(0, newBook.getQuantity());
+
     }
 
     @Test

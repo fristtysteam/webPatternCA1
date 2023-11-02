@@ -21,10 +21,10 @@ public interface BookDaoInterface {
     /**
      * update the quantity in the book
      * @param bookID the bookID
-     * @param increase boolean, if true then quantity +1, otherwise -1
+     * @param increase enter interger to delete or update quantity
      * @return rows affected
      */
-    public int updateBookQuantity(int bookID, boolean increase);
+    public int updateBookQuantity(int bookID, int increase);
 
     public int addBook (Book book);
 

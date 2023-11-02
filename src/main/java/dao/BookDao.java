@@ -98,15 +98,19 @@ public class BookDao extends Dao implements BookDaoInterface {
      * @return The number of rows affected by the update.
      */
     @Override
-    public int updateBookQuantity(int bookID, boolean increase) {
-        String query = increase ? "UPDATE books SET quantity = quantity + 1 WHERE bookID = ?" :
-                "UPDATE books SET quantity = quantity - 1 WHERE bookID = ?";
+    public int updateBookQuantity(int bookID, int increase) {
+        String query =  "UPDATE books set quantity = CASE\n" +
+                        "WHEN quantity + (?) < 0 THEN 0\n" +
+                        "ELSE quantity + (?) END where bookID = ?";
+
         int rowsAffected = 0;
 
         try (Connection con = getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
 
-            ps.setInt(1, bookID);
+            ps.setInt(1, increase);
+            ps.setInt(2,increase);
+            ps.setInt(3,bookID);
             rowsAffected = ps.executeUpdate();
         } catch (SQLException e) {
             System.out.println("Something went wrong with get all updateBookQuantity");

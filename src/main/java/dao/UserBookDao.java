@@ -119,7 +119,7 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
             ps.setTimestamp(4, Timestamp.valueOf(dueDate));
 
             rowsAffected = ps.executeUpdate();
-            bookDao.updateBookQuantity(bookID, false);
+            bookDao.updateBookQuantity(bookID, -1);
         }
         catch(SQLException se){
             System.out.println(se.getMessage());
@@ -146,7 +146,7 @@ public class UserBookDao extends Dao implements UserBookDaoInterface{
             ps.setInt(3, bookID);
 
             rowsAffected = ps.executeUpdate();
-            bookDao.updateBookQuantity(bookID, true);
+            bookDao.updateBookQuantity(bookID, 1);
             //checkIfLate(1, 1);
         }
         catch(SQLException se){
