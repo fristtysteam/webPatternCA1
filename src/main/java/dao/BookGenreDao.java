@@ -88,8 +88,7 @@ public class BookGenreDao extends Dao implements BookGenreDaoInterface {
 
             rowsAffected = ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
+            System.out.println("error");        } finally {
             freeConnection();
         }
 
