@@ -69,6 +69,7 @@ class BookDaoIsolationTest {
 
         BookDao bookDao = new BookDao(dbConn);
         Book result = bookDao.getBookByID(1);
+        verify(ps).setInt(1,1);
 
         Dao.mock = false;
         assertEquals(expectedBook, result);
