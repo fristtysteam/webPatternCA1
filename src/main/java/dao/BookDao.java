@@ -41,7 +41,8 @@ public class BookDao extends Dao implements BookDaoInterface {
                 ));
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Something went wrong with getAllBooks");
+            System.out.println(e.getMessage());
         }finally {
             freeConnection();
         }
@@ -79,7 +80,8 @@ public class BookDao extends Dao implements BookDaoInterface {
                 }
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Something went wrong with get all getBookByID");
+            System.out.println(e.getMessage());
         }finally {
             freeConnection();
         }
@@ -107,7 +109,8 @@ public class BookDao extends Dao implements BookDaoInterface {
             ps.setInt(1, bookID);
             rowsAffected = ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Something went wrong with get all updateBookQuantity");
+            System.out.println(e.getMessage());
         }finally {
             freeConnectionUpdate();
         }
@@ -121,6 +124,11 @@ public class BookDao extends Dao implements BookDaoInterface {
         String query = "INSERT INTO books (bookName, author, description, quantity) VALUES (?, ?, ?, ?)";
         int rowsAffected = 0;
 
+        if(book.getQuantity() <= 0 ){
+            return 0;
+        }
+
+
         try (Connection con = getConnection();
              PreparedStatement ps = con.prepareStatement(query)) {
 
@@ -131,7 +139,8 @@ public class BookDao extends Dao implements BookDaoInterface {
 
             rowsAffected = ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Something went wrong with get all addBook");
+            System.out.println(e.getMessage());
         }finally {
             freeConnection();
         }
@@ -149,7 +158,8 @@ public class BookDao extends Dao implements BookDaoInterface {
             ps.setInt(1, bookID);
             rowsAffected = ps.executeUpdate();
         } catch (SQLException e) {
-            e.printStackTrace();
+            System.out.println("Something went wrong with get all deleteBook");
+            System.out.println(e.getMessage());
         }finally {
             freeConnection();
         }

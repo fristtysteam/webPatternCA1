@@ -40,8 +40,8 @@ public class GenreDao extends Dao implements GenreDaoInterface {
                 ));
             }
         } catch (SQLException e) {
-            // Handle or log the exception
-            e.printStackTrace();
+            System.out.println("Something went wrong with getAllGenres");
+            System.out.println(e.getMessage());
         }       finally {
             freeConnection();
         }
@@ -75,8 +75,8 @@ public class GenreDao extends Dao implements GenreDaoInterface {
                 }
             }
         } catch (SQLException e) {
-            // Handle or log the exception
-            e.printStackTrace();
+            System.out.println("Something went wrong with get all getGenreByID");
+            System.out.println(e.getMessage());
         }        finally {
             freeConnection();
         }
