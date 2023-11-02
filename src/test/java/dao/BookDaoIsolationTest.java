@@ -78,16 +78,6 @@ class BookDaoIsolationTest {
     @Test
     void updateBookQuantity() {
 
-
-
-    }
-    @Test
-    void addBook() {
-
-    }
-    @Test
-    void deleteBook() {
-
     }
 
 }
