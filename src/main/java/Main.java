@@ -11,7 +11,7 @@ public class Main {
     private static final BookDao bookDao = new BookDao("library");
     private static final UserBookDao userBookDao = new UserBookDao("library");
     private static final GenreDao genreDao = new GenreDao("library");
-//    private static final BookGenreDao bookGenreDao = new BookGenreDao("library");
+    private static final BookGenreDao bookGenreDao = new BookGenreDao("library");
 
     public static void main(String[] args) {
         boolean logged = false;
