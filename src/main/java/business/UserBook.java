@@ -4,7 +4,7 @@ package business;
 import java.time.LocalDateTime;
 
 /**
- * @author Marco
+ * @author playerzer0-ui
  */
 public class UserBook{
     private User userID;

@@ -1,7 +1,7 @@
 package business;
 
 /**
- * @author playerzer0-ui
+ * @author CheePheng
  */
 public class Book{
 

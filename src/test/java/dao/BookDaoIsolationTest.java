@@ -82,19 +82,81 @@ class BookDaoIsolationTest {
     }
 
     /**
+     * @author playerzer0-ui
+     */
+    @Test
+    void updateBookQuantity() throws SQLException {
+        Dao.mock = true;
+
+        String query =  "UPDATE books set quantity = CASE\n" +
+                "WHEN quantity + (?) < 0 THEN 0\n" +
+                "ELSE quantity + (?) END where bookID = ?";
+
+        // Create mock objects
+        Connection dbConn = mock(Connection.class);
+        PreparedStatement ps = mock(PreparedStatement.class);
+
+        when(dbConn.prepareStatement(query)).thenReturn(ps);
+        when(ps.executeUpdate()).thenReturn(1);
+
+        BookDao bookDao = new BookDao(dbConn);
+        int result = bookDao.updateBookQuantity(1, 1);
+        verify(ps).setInt(1,1);
+        verify(ps).setInt(2,1);
+
+        Dao.mock = false;
+        assertEquals(1, result);
+    }
+
+    /**
+     * @author playerzer0-ui
+     */
+    @Test
+    void addBook() throws SQLException {
+        Book expectedBook = new Book(1, "titleA", "me", "desc", 10);
+        Dao.mock = true;
+
+        String query = "INSERT INTO books (bookName, author, description, quantity) VALUES (?, ?, ?, ?)";
+
+        // Create mock objects
+        Connection dbConn = mock(Connection.class);
+        PreparedStatement ps = mock(PreparedStatement.class);
+
+        when(dbConn.prepareStatement(query)).thenReturn(ps);
+        when(ps.executeUpdate()).thenReturn(1);
+
+        BookDao bookDao = new BookDao(dbConn);
+        int result = bookDao.addBook(expectedBook);
+        verify(ps).setString(1, expectedBook.getBookName());
+        verify(ps).setString(2, expectedBook.getAuthor());
+        verify(ps).setString(3, expectedBook.getDescription());
+        verify(ps).setInt(4, expectedBook.getQuantity());
+
+        assertEquals(1, result);
+    }
+
+    /**
      * @author Marco
      */
     @Test
-    void updateBookQuantity() {
+    void deleteBook() throws SQLException{
+        Dao.mock = true;
 
-    }
-    @Test
-    void addBook() {
+        // Create mock objects
+        Connection dbConn = mock(Connection.class);
+        PreparedStatement ps = mock(PreparedStatement.class);
+        //ResultSet rs = mock(ResultSet.class);
 
-    }
-    @Test
-    void deleteBook() {
+        when(dbConn.prepareStatement("DELETE FROM books WHERE bookID = ?")).thenReturn(ps);
+        when(ps.executeUpdate()).thenReturn(1);
+        //when(rs.next()).thenReturn(true, false);
 
+        BookDao bookDao = new BookDao(dbConn);
+        int result = bookDao.deleteBook(1);
+        verify(ps, times(1)).executeUpdate();
+
+        Dao.mock = false;
+        assertEquals(1, result);
     }
 
 }

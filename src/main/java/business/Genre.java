@@ -1,9 +1,7 @@
 package business;
 
-import java.util.Objects;
-
 /**
- * @author playerzer0-ui
+ * @author CheePheng
  */
 public class Genre{
 

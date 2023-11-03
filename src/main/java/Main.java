@@ -187,7 +187,11 @@ public class Main {
                     System.out.println("bookID: " + b.getBookID());
                     System.out.println("book name: " + b.getBookName());
                     System.out.println("author: " + b.getAuthor());
-                    System.out.println("genres: " + genres);
+                    System.out.print("genres: ");
+                    for(Genre g : genres){
+                        System.out.print(g.getGenreName() + " ");
+                    }
+                    System.out.println();
                     System.out.println("description: " + b.getDescription());
                     System.out.println("quantity: " + b.getQuantity());
                 }
@@ -333,7 +337,11 @@ public class Main {
                     System.out.println("bookID: " + b.getBookID());
                     System.out.println("book name: " + b.getBookName());
                     System.out.println("author: " + b.getAuthor());
-                    System.out.println("genres: " + genres);
+                    System.out.print("genres: ");
+                    for(Genre g : genres){
+                        System.out.print(g.getGenreName() + " ");
+                    }
+                    System.out.println();
                     System.out.println("description: " + b.getDescription());
                     System.out.println("quantity: " + b.getQuantity());
                 }
