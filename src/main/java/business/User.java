@@ -107,6 +107,18 @@ public class User{
         return userID;
     }
 
+    public void format(){
+        System.out.println("-------------------------------------");
+        System.out.println("userID: " + userID);
+        System.out.println("username: " + userName);
+        System.out.println("email: " + email);
+        System.out.println("password: " + password);
+        System.out.println("address: " + address);
+        System.out.println("phone: " + phone);
+        System.out.println("fees: " + fees);
+        System.out.println("-------------------------------------");
+    }
+
     @Override
     public String toString() {
         return "User{" +
