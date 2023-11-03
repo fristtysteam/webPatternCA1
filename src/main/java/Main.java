@@ -21,30 +21,36 @@ public class Main {
     private static final BookGenreDao bookGenreDao = new BookGenreDao("library");
     private static final Scanner sc = new Scanner(System.in);
     private static boolean logged = false;
+    private static boolean session = true;
     private static int choice = -1;
     private static User user = null;
 
     public static void main(String[] args) {
-        user = userSession();
 
-        while(logged){
-            assert user != null;
-            if(user.getUserType() == -1){
-                System.out.println("this user is disabled");
-                System.out.println("requires admin to enable user");
-                logged = false;
-            }
-            else{
-                displayMenu(user.getUserType());
-
-                if(user.getUserType() == 0){
-                    userInterface();
-                }
-                else if(user.getUserType() == 1){
-                    adminInterface();
-                }
+        while(session){
+            if(!logged){
+                user = userSession();
             }
 
+            while(logged){
+
+                assert user != null;
+                if(user.getUserType() == -1){
+                    System.out.println("this user is disabled");
+                    System.out.println("requires admin to enable user");
+                    logged = false;
+                }
+                else{
+                    displayMenu(user.getUserType());
+
+                    if(user.getUserType() == 0){
+                        userInterface();
+                    }
+                    else if(user.getUserType() == 1){
+                        adminInterface();
+                    }
+                }
+            }
         }
 
     }
@@ -154,6 +160,7 @@ public class Main {
                     break;
 
                 case 3:
+                    session = false;
                     System.exit(0);
                     break;
 
