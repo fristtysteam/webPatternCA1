@@ -192,6 +192,20 @@ class UserDaoTest {
         assertTrue(userDao.checkEmail("jerry@gmail.com"));
     }
 
+    @Test
+    void updateUserTypeByID_normal(){
+        int act = userDao.updateUserTypeByID(1, -1);
+        User user = userDao.getUserByID(1);
+        userDao.updateUserTypeByID(1, 0);
 
+        assertEquals(-1, user.getUserType());
+        assertEquals(1, act);
+    }
+
+    @Test
+    void updateUserTypeByID_noID(){
+        int act = userDao.updateUserTypeByID(100, -1);
+        assertEquals(0, act);
+    }
 
 }

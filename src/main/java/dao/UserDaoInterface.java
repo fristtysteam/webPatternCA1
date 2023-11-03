@@ -63,4 +63,13 @@ public interface UserDaoInterface {
      */
     boolean checkEmail(String email);
 
+
+    /**
+     * update the userID, this can be used to enable or disable a user, simply
+     * change userType to -1, to enable, change to 0
+     * @param userID the userID
+     * @return rows affected
+     */
+    int updateUserTypeByID(int userID, int userType);
+
 }

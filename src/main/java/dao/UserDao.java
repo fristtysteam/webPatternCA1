@@ -260,4 +260,27 @@ public class UserDao extends Dao implements UserDaoInterface{
         }
         return false;
     }
+
+    @Override
+    public int updateUserTypeByID(int userID, int userType) {
+        int rowsAffected = 0;
+
+        try{
+            String query = "UPDATE users SET userType = ? WHERE userID = ?";
+            con = getConnection();
+            ps = con.prepareStatement(query);
+            ps.setInt(1, userType);
+            ps.setInt(2, userID);
+
+            rowsAffected = ps.executeUpdate();
+        }
+        catch(SQLException se){
+            System.out.println(se.getMessage());
+            System.out.println("something went wrong with updateFee");
+        }
+        finally {
+            freeConnectionUpdate();
+        }
+        return rowsAffected;
+    }
 }
