@@ -3,6 +3,9 @@ package dao;
 import java.util.List;
 import business.Book;
 
+/**
+ * @author CheePheng
+ */
 public interface BookDaoInterface {
 
     /**

@@ -4,6 +4,9 @@ import business.User;
 
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * @author playerzer0-ui
+ */
 public interface UserDaoInterface {
 
     /**

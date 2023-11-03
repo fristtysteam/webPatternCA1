@@ -2,6 +2,9 @@ package business;
 
 import java.util.Objects;
 
+/**
+ * @author playerzer0-ui
+ */
 public class Genre{
 
   private int genreID;

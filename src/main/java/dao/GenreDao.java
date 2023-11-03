@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Data Access Object for managing Genre entities.
+ * @author CheePheng
  */
 public class GenreDao extends Dao implements GenreDaoInterface {
 

@@ -3,6 +3,9 @@ package business;
 import java.awt.print.Book;
 import java.util.Objects;
 
+/**
+ * @author Marco
+ */
 public class BookGenre{
 
     private int bookID;

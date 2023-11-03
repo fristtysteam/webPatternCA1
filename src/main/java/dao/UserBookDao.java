@@ -10,6 +10,9 @@ import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author playerzer0-ui
+ */
 public class UserBookDao extends Dao implements UserBookDaoInterface{
 
     private final BookDao bookDao;

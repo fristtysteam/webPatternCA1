@@ -2,6 +2,9 @@ package dao;
 
 import java.sql.*;
 
+/**
+ * @author playerzer0-ui
+ */
 public class Dao {
     protected Connection con = null;
     protected PreparedStatement ps = null;

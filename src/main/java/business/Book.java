@@ -1,5 +1,8 @@
 package business;
 
+/**
+ * @author playerzer0-ui
+ */
 public class Book{
 
     private int bookID;

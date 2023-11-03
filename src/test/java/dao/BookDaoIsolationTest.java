@@ -16,6 +16,9 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BookDaoIsolationTest {
 
+    /**
+     * @author playerzer0-ui
+     */
     @Test
     void getAllBooks() throws SQLException {
         Dao.mock = true;
@@ -48,6 +51,9 @@ class BookDaoIsolationTest {
         assertEquals(books, result);
     }
 
+    /**
+     * @author CheePheng
+     */
     @Test
     void getBookByID() throws SQLException {
         Dao.mock = true;
@@ -75,10 +81,11 @@ class BookDaoIsolationTest {
         assertEquals(expectedBook, result);
     }
 
+    /**
+     * @author Marco
+     */
     @Test
     void updateBookQuantity() {
-
-
 
     }
     @Test

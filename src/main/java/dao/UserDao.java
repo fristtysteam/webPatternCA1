@@ -9,6 +9,9 @@ import exceptions.InvalidEmailException;
 import exceptions.InvalidPasswordException;
 import org.mindrot.jbcrypt.BCrypt;
 
+/**
+ * @author playerzer0-ui
+ */
 public class UserDao extends Dao implements UserDaoInterface{
     public UserDao(String dbName) {
         super(dbName);

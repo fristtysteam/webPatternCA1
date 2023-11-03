@@ -4,6 +4,9 @@ import business.UserBook;
 
 import java.util.List;
 
+/**
+ * @author playerzer0-ui
+ */
 public interface UserBookDaoInterface {
 
     /**

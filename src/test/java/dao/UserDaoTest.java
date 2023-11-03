@@ -9,6 +9,9 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author playerzer0-ui
+ */
 class UserDaoTest {
     private final UserDao userDao = new UserDao("testLibrary");
     /**

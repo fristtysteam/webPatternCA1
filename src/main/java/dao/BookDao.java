@@ -9,6 +9,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author CheePheng
+ */
 public class BookDao extends Dao implements BookDaoInterface {
 
     public BookDao(String dbName) {

@@ -8,6 +8,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author Marco
+ */
 class BookGenreDaoTest {
     private final BookGenreDao bookGenreDao = new BookGenreDao("testLibrary");
     @Test
