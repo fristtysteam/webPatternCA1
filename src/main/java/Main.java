@@ -464,7 +464,13 @@ public class Main {
                 System.out.println("Enter A BookID: ");
                 bookID = validInt();
                 sc.nextLine();
-                success = userBookDao.returnBook(user.getUserID(), bookID);
+
+                if(bookID == -11){
+                    success = 0;
+                }
+                else{
+                    success = userBookDao.returnBook(user.getUserID(), bookID);
+                }
 
                 if(success > 0){
                     System.out.println("-----------------------------------------");
