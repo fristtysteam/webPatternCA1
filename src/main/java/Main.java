@@ -380,7 +380,7 @@ public class Main {
                 break;
 
             case 10:
-                sc.nextLine();
+//                sc.nextLine();
                 System.out.println("Insert A Book Name: ");
                 bookName = sc.nextLine();
                 System.out.println("Insert Author Name: ");
