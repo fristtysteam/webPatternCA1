@@ -208,6 +208,7 @@ public class Main {
             case 2:
                 List<UserBook> userBooks = userBookDao.getAllCurrentBooksByUserID(user.getUserID());
                 if(userBooks.isEmpty()){
+                    System.out.println("-----------------------------------------");
                     System.out.println("No Loans Available, Borrow One!");
                 }
                 else{
@@ -231,6 +232,7 @@ public class Main {
             case 3:
                 List<UserBook> userBooks1 = userBookDao.getAllBooksByUserID(user.getUserID());
                 if(userBooks1.isEmpty()){
+                    System.out.println("-----------------------------------------");
                     System.out.println("no history available, borrow one!");
                 }
                 else{
@@ -363,7 +365,6 @@ public class Main {
      */
     public static void adminInterface(){
         int bookID;
-        int success;
         String bookName;
         String author;
         String desc;
@@ -372,175 +373,10 @@ public class Main {
         int userID;
         List<Book> books;
 
-        choice = validInt();
+        userInterface();
 
         switch(choice){
-            case 1:
-                books = bookDao.getAllBooks();
-                List<Genre> genres;
-                for(Book b : books){
-                    genres = bookGenreDao.getGenreByBookID(b.getBookID());
-                    System.out.println("-----------------------");
-                    System.out.println("BookID: " + b.getBookID());
-                    System.out.println("Book Name: " + b.getBookName());
-                    System.out.println("Author: " + b.getAuthor());
-                    System.out.print("Genres: ");
-                    for(Genre g : genres){
-                        System.out.print(g.getGenreName() + " ");
-                    }
-                    System.out.println();
-                    System.out.println("Description: " + b.getDescription());
-                    System.out.println("Quantity: " + b.getQuantity());
-                }
-                System.out.println("-----------------------");
-                break;
-
-            case 2:
-                List<UserBook> userBooks = userBookDao.getAllCurrentBooksByUserID(user.getUserID());
-
-                if(userBooks.isEmpty()){
-                    System.out.println("-----------------------------------------");
-                    System.out.println("No Loans Available, Borrow One!");
-                }
-                else{
-                    for(UserBook uB : userBooks){
-                        System.out.println("-----------------------------------------");
-                        System.out.println("UserID: " + uB.getUserID().getUserID());
-                        System.out.println("BookID: " + uB.getBookID().getBookID());
-                        System.out.println("Book Name: " + uB.getBookID().getBookName());
-                        System.out.println("Borrow Date: " + uB.getBorrowDate());
-                        System.out.println("Due Date: " + uB.getDueDate());
-                        if(uB.getReturnedDate() == null){
-                            System.out.println("Returned Date : N/A");
-                        }else{
-                            System.out.println("Returned Date : " + uB.getReturnedDate());
-                        }
-                    }
-                }
-                System.out.println("-----------------------------------------");
-                break;
-
-            case 3:
-                List<UserBook> userBooks1 = userBookDao.getAllBooksByUserID(user.getUserID());
-                if(userBooks1.isEmpty()){
-                    System.out.println("-----------------------------------------");
-                    System.out.println("No History Available, Borrow One!");
-                }
-                else{
-                    for(UserBook uB : userBooks1){
-                        System.out.println("-----------------------------------------");
-                        System.out.println("UserID: " + uB.getUserID().getUserID());
-                        System.out.println("BookID: " + uB.getBookID().getBookID());
-                        System.out.println("Book Name: " + uB.getBookID().getBookName());
-                        System.out.println("Borrow Date: " + uB.getBorrowDate());
-                        System.out.println("Due Date: " + uB.getDueDate());
-                        if(uB.getReturnedDate() == null){
-                            System.out.println("Returned Date : N/A");
-                        }else{
-                            System.out.println("Returned Date : " + uB.getReturnedDate());
-                        }
-                    }
-                }
-                System.out.println("-----------------------------------------");
-                break;
-
-            case 4:
-                System.out.println("Enter A BookID: ");
-                bookID = validInt();
-                sc.nextLine();
-                success = userBookDao.borrowBook(user.getUserID(), bookID);
-
-                System.out.println("-----------------------------------------");
-                if(success > 0){
-                    System.out.println("Book Borrowed, Please Return It Within 2 Weeks From Now");
-                }
-                else{
-                    System.out.println("The Book Does Not Exist, Borrow Cancelled");
-                }
-                System.out.println("-----------------------------------------");
-                break;
-
-            case 5:
-                System.out.println("Enter A BookID: ");
-                bookID = validInt();
-                sc.nextLine();
-
-                if(bookID == -11){
-                    success = 0;
-                }
-                else{
-                    success = userBookDao.returnBook(user.getUserID(), bookID);
-                }
-
-                if(success > 0){
-                    System.out.println("-----------------------------------------");
-                    System.out.println("Book Returned");
-                    userBookDao.checkIfLate(user.getUserID(), bookID);
-                }
-                else{
-                    System.out.println("-----------------------------------------");
-                    System.out.println("No Such Borrow");
-                }
-                System.out.println("-----------------------------------------");
-                break;
-
-            case 6:
-                System.out.println("-----------------------------------------");
-                System.out.println("Your Fees Total: " + user.getFees());
-                System.out.println("-----------------------------------------");
-                break;
-
-            case 7:
-                sc.nextLine();
-                System.out.println("insert card number");
-                String card = sc.nextLine();
-                System.out.println("insert cvv");
-                String cvv = sc.nextLine();
-
-                if(card.length() == 16 && cvv.length() == 3) {
-                    System.out.println("Fee: " + user.getFees());
-                    System.out.println("Enter Amount To Pay: ");
-                    int pay = validInt();
-                    int refundAmount = pay - user.getFees();
-                    int totalAmount = pay - refundAmount;
-                    int leftToPay = user.getFees() - pay;
-
-                    if (user.getFees() < pay) {
-
-                        System.out.println("-----------------------------------------");
-                        System.out.println("Pay Amount Is Too High \nAuto Deducted, Total Amount Payed : " + totalAmount + "\nTotal Amount Paid Refunded : " + refundAmount);
-                        userDao.updateFee(user.getUserID(), -totalAmount);
-                        user.setFees(user.getFees() - totalAmount);
-
-                    } else if (user.getFees() == pay) {
-                        System.out.println("-----------------------------------------");
-                        System.out.println("Payment Fulfilled");
-                        userDao.updateFee(user.getUserID(), -pay);
-                        user.setFees(user.getFees() - pay);
-                    }
-                    else{
-
-                        System.out.println("-----------------------------------------");
-                        System.out.println("Total Fee Deducted From " + user.getFees() + " To " + leftToPay);
-                        System.out.println("Total Amount Payed This Time : " + pay);
-                        System.out.println("Amount Left To Pay : " + leftToPay);
-                        userDao.updateFee(user.getUserID(), - pay);
-                        user.setFees(leftToPay);
-                    }
-
-                } else{
-                    System.out.println("-----------------------------------------");
-                    System.out.println("Invalid Card Details");
-                }
-                System.out.println("-----------------------------------------");
-                break;
-
-            case 8:
-                user.format();
-                break;
-
-            case 9:
-                logged = false;
+            case 1, 2, 3, 4, 5, 6, 7, 8, 9:
                 break;
 
             case 10:
