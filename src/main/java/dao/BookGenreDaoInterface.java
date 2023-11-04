@@ -5,6 +5,9 @@ import business.Genre;
 
 import java.util.List;
 
+/**
+ * @author Marco
+ */
 public interface BookGenreDaoInterface {
 
     /**

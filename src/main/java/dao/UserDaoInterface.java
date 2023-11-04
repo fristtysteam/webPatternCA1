@@ -4,6 +4,9 @@ import business.User;
 
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * @author playerzer0-ui
+ */
 public interface UserDaoInterface {
 
     /**
@@ -62,5 +65,14 @@ public interface UserDaoInterface {
      * @return true(more than one) or false(none)
      */
     boolean checkEmail(String email);
+
+
+    /**
+     * update the userID, this can be used to enable or disable a user, simply
+     * change userType to -1, to enable, change to 0
+     * @param userID the userID
+     * @return rows affected
+     */
+    int updateUserTypeByID(int userID, int userType);
 
 }

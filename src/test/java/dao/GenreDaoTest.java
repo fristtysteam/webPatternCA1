@@ -10,6 +10,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author CheePheng
+ */
 class GenreDaoTest {
     private GenreDao genreDao;
     private List<Genre> testGenres;

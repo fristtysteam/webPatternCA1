@@ -2,6 +2,9 @@ package business;
 
 import java.util.Objects;
 
+/**
+ * @author playerzer0-ui
+ */
 public class User{
 
     private int userID;
@@ -105,6 +108,18 @@ public class User{
     @Override
     public int hashCode() {
         return userID;
+    }
+
+    public void format(){
+        System.out.println("-------------------------------------");
+        System.out.println("userID: " + userID);
+        System.out.println("username: " + userName);
+        System.out.println("email: " + email);
+        System.out.println("password: " + password);
+        System.out.println("address: " + address);
+        System.out.println("phone: " + phone);
+        System.out.println("fees: " + fees);
+        System.out.println("-------------------------------------");
     }
 
     @Override

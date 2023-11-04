@@ -1,7 +1,8 @@
 package business;
 
-import java.util.Objects;
-
+/**
+ * @author CheePheng
+ */
 public class Book{
 
     private int bookID;
@@ -15,6 +16,13 @@ public class Book{
 
     public Book(int bookID, String bookName, String author, String description, int quantity) {
         this.bookID = bookID;
+        this.bookName = bookName;
+        this.author = author;
+        this.description = description;
+        this.quantity = quantity;
+    }
+
+    public Book(String bookName, String author, String description, int quantity) {
         this.bookName = bookName;
         this.author = author;
         this.description = description;

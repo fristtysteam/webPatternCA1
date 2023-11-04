@@ -10,6 +10,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+/**
+ * @author playerzer0-ui
+ */
 class UserBookDaoTest {
 
     private final UserBookDao userBookDao = new UserBookDao("testLibrary");

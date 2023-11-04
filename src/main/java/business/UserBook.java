@@ -3,6 +3,9 @@ package business;
 
 import java.time.LocalDateTime;
 
+/**
+ * @author playerzer0-ui
+ */
 public class UserBook{
     private User userID;
     private Book bookID;

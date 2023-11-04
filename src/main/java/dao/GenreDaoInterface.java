@@ -3,6 +3,9 @@ package dao;
 import java.util.List;
 import business.Genre;
 
+/**
+ * @author CheePheng
+ */
 public interface GenreDaoInterface {
 
     /**
