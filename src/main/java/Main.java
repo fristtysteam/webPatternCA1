@@ -62,31 +62,31 @@ public class Main {
     public static void displayMenu(int userType){
         if(userType == 0){
             System.out.println("Select An Option: ");
-            System.out.println("1. View details of all books in library");
-            System.out.println("2. View loans");
-            System.out.println("3. View history");
-            System.out.println("4. Borrow a book");
-            System.out.println("5. Return a book");
-            System.out.println("6. View fees");
-            System.out.println("7. Pay the fee");
+            System.out.println("1. View Details Of All Books In Library");
+            System.out.println("2. View Loans");
+            System.out.println("3. View History");
+            System.out.println("4. Borrow A Book");
+            System.out.println("5. Return A Book");
+            System.out.println("6. View Fees");
+            System.out.println("7. Pay The Fee");
             System.out.println("8. Profile");
             System.out.println("9. Logout");
         }
         else{
-            System.out.println("select an option: ");
-            System.out.println("1. view details of all books in library");
-            System.out.println("2. view loans");
-            System.out.println("3. view history");
-            System.out.println("4. borrow a book");
-            System.out.println("5. return a book");
-            System.out.println("6. view fees");
-            System.out.println("7. pay the fee");
-            System.out.println("8. profile");
-            System.out.println("9. logout");
-            System.out.println("10. add a book");
-            System.out.println("11. update quantity in a book");
-            System.out.println("12. disable member");
-            System.out.println("13. enable member");
+            System.out.println("Select An Option: ");
+            System.out.println("1. View Details Of All Books In Library");
+            System.out.println("2. View Loans");
+            System.out.println("3. View History");
+            System.out.println("4. Borrow A Book");
+            System.out.println("5. Return A Book");
+            System.out.println("6. View Fees");
+            System.out.println("7. Pay The Fee");
+            System.out.println("8. Profile");
+            System.out.println("9. Logout");
+            System.out.println("10. Add A Book");
+            System.out.println("11. Update Quantity In A Book");
+            System.out.println("12. Disable Member");
+            System.out.println("13. Enable Member");
         }
     }
 
@@ -103,19 +103,19 @@ public class Main {
         String phone;
 
         while(!logged){
-            System.out.println("select an option (use number): ");
-            System.out.println("1. login");
-            System.out.println("2. register");
-            System.out.println("3. exit");
+            System.out.println("Select An Option (Use Number): ");
+            System.out.println("1. Login");
+            System.out.println("2. Register");
+            System.out.println("3. Exit");
 
             choice = validInt();
             sc.nextLine();
 
             switch (choice){
                 case 1:
-                    System.out.println("enter email: ");
+                    System.out.println("Enter Email: ");
                     email = sc.nextLine();
-                    System.out.println("enter password: ");
+                    System.out.println("Enter Password: ");
                     password = sc.nextLine();
 
                     try{
@@ -123,25 +123,25 @@ public class Main {
                     }
                     catch (InvalidEmailException e){
                         System.out.println(e.getMessage());
-                        System.out.println("try a different email");
+                        System.out.println("Try A Different Email");
                     }
                     catch (InvalidPasswordException pe){
                         System.out.println(pe.getMessage());
-                        System.out.println("try again");
+                        System.out.println("Try Again");
                     }
 
                     break;
 
                 case 2:
-                    System.out.println("enter username: ");
+                    System.out.println("Enter Username: ");
                     username = sc.nextLine();
-                    System.out.println("enter email: ");
+                    System.out.println("Enter Email: ");
                     email = sc.nextLine();
-                    System.out.println("enter password: ");
+                    System.out.println("Enter Password: ");
                     password = sc.nextLine();
-                    System.out.println("enter address: ");
+                    System.out.println("Enter Address: ");
                     address = sc.nextLine();
-                    System.out.println("enter phone: ");
+                    System.out.println("Enter Phone: ");
                     phone = sc.nextLine();
 
                     try{
@@ -150,11 +150,11 @@ public class Main {
                     }
                     catch (DuplicateUsernameException e){
                         System.out.println(e.getMessage());
-                        System.out.println("try a different username");
+                        System.out.println("Try A Different Username");
                     }
                     catch (DuplicateEmailException e){
                         System.out.println(e.getMessage());
-                        System.out.println("try a different email, or login instead");
+                        System.out.println("Try A Different Email Or Login Instead");
                     }
 
                     break;
@@ -165,7 +165,7 @@ public class Main {
                     break;
 
                 default:
-                    System.out.println("invalid option");
+                    System.out.println("Invalid Option");
                     break;
             }
             if(user != null){
@@ -208,7 +208,7 @@ public class Main {
             case 2:
                 List<UserBook> userBooks = userBookDao.getAllCurrentBooksByUserID(user.getUserID());
                 if(userBooks.isEmpty()){
-                    System.out.println("No loans available, borrow one!");
+                    System.out.println("No Loans Available, Borrow One!");
                 }
                 else{
                     for(UserBook uB : userBooks){
@@ -353,7 +353,7 @@ public class Main {
                 break;
 
             default:
-                System.out.println("invalid command");
+                System.out.println("Invalid Command");
                 break;
         }
     }
@@ -381,32 +381,35 @@ public class Main {
                 for(Book b : books){
                     genres = bookGenreDao.getGenreByBookID(b.getBookID());
                     System.out.println("-----------------------");
-                    System.out.println("bookID: " + b.getBookID());
-                    System.out.println("book name: " + b.getBookName());
-                    System.out.println("author: " + b.getAuthor());
-                    System.out.print("genres: ");
+                    System.out.println("BookID: " + b.getBookID());
+                    System.out.println("Book Name: " + b.getBookName());
+                    System.out.println("Author: " + b.getAuthor());
+                    System.out.print("Genres: ");
                     for(Genre g : genres){
                         System.out.print(g.getGenreName() + " ");
                     }
                     System.out.println();
-                    System.out.println("description: " + b.getDescription());
-                    System.out.println("quantity: " + b.getQuantity());
+                    System.out.println("Description: " + b.getDescription());
+                    System.out.println("Quantity: " + b.getQuantity());
                 }
+                System.out.println("-----------------------");
                 break;
 
             case 2:
                 List<UserBook> userBooks = userBookDao.getAllCurrentBooksByUserID(user.getUserID());
+
                 if(userBooks.isEmpty()){
-                    System.out.println("no loans available, borrow one!");
+                    System.out.println("-----------------------------------------");
+                    System.out.println("No Loans Available, Borrow One!");
                 }
                 else{
                     for(UserBook uB : userBooks){
                         System.out.println("-----------------------------------------");
-                        System.out.println("userID: " + uB.getUserID().getUserID());
-                        System.out.println("bookID: " + uB.getBookID().getBookID());
-                        System.out.println("book name: " + uB.getBookID().getBookName());
-                        System.out.println("borrowDate: " + uB.getBorrowDate());
-                        System.out.println("due date: " + uB.getDueDate());
+                        System.out.println("UserID: " + uB.getUserID().getUserID());
+                        System.out.println("BookID: " + uB.getBookID().getBookID());
+                        System.out.println("Book Name: " + uB.getBookID().getBookName());
+                        System.out.println("Borrow Date: " + uB.getBorrowDate());
+                        System.out.println("Due Date: " + uB.getDueDate());
                         if(uB.getReturnedDate() == null){
                             System.out.println("Returned Date : N/A");
                         }else{
@@ -414,21 +417,23 @@ public class Main {
                         }
                     }
                 }
+                System.out.println("-----------------------------------------");
                 break;
 
             case 3:
                 List<UserBook> userBooks1 = userBookDao.getAllBooksByUserID(user.getUserID());
                 if(userBooks1.isEmpty()){
-                    System.out.println("no history available, borrow one!");
+                    System.out.println("-----------------------------------------");
+                    System.out.println("No History Available, Borrow One!");
                 }
                 else{
                     for(UserBook uB : userBooks1){
                         System.out.println("-----------------------------------------");
-                        System.out.println("userID: " + uB.getUserID().getUserID());
-                        System.out.println("bookID: " + uB.getBookID().getBookID());
-                        System.out.println("book name: " + uB.getBookID().getBookName());
-                        System.out.println("borrowDate: " + uB.getBorrowDate());
-                        System.out.println("due date: " + uB.getDueDate());
+                        System.out.println("UserID: " + uB.getUserID().getUserID());
+                        System.out.println("BookID: " + uB.getBookID().getBookID());
+                        System.out.println("Book Name: " + uB.getBookID().getBookName());
+                        System.out.println("Borrow Date: " + uB.getBorrowDate());
+                        System.out.println("Due Date: " + uB.getDueDate());
                         if(uB.getReturnedDate() == null){
                             System.out.println("Returned Date : N/A");
                         }else{
@@ -436,39 +441,47 @@ public class Main {
                         }
                     }
                 }
+                System.out.println("-----------------------------------------");
                 break;
 
             case 4:
-                System.out.println("enter a bookID: ");
+                System.out.println("Enter A BookID: ");
                 bookID = validInt();
                 sc.nextLine();
                 success = userBookDao.borrowBook(user.getUserID(), bookID);
 
+                System.out.println("-----------------------------------------");
                 if(success > 0){
-                    System.out.println("book borrowed, please return iot within 2 weeks");
+                    System.out.println("Book Borrowed, Please Return It Within 2 Weeks From Now");
                 }
                 else{
-                    System.out.println("the book does not exist, borrow cancelled");
+                    System.out.println("The Book Does Not Exist, Borrow Cancelled");
                 }
+                System.out.println("-----------------------------------------");
                 break;
 
             case 5:
-                System.out.println("enter a bookID: ");
+                System.out.println("Enter A BookID: ");
                 bookID = validInt();
                 sc.nextLine();
                 success = userBookDao.returnBook(user.getUserID(), bookID);
 
                 if(success > 0){
-                    System.out.println("book returned");
+                    System.out.println("-----------------------------------------");
+                    System.out.println("Book Returned");
                     userBookDao.checkIfLate(user.getUserID(), bookID);
                 }
                 else{
-                    System.out.println("no such borrow");
+                    System.out.println("-----------------------------------------");
+                    System.out.println("No Such Borrow");
                 }
+                System.out.println("-----------------------------------------");
                 break;
 
             case 6:
-                System.out.println("your fees: " + user.getFees());
+                System.out.println("-----------------------------------------");
+                System.out.println("Your Fees Total: " + user.getFees());
+                System.out.println("-----------------------------------------");
                 break;
 
             case 7:
@@ -478,17 +491,42 @@ public class Main {
                 System.out.println("insert cvv");
                 String cvv = sc.nextLine();
 
-                if(card.length() == 16 && cvv.length() == 3){
-                    System.out.println("fee: " + user.getFees());
-                    System.out.println("enter amount to pay: ");
+                if(card.length() == 16 && cvv.length() == 3) {
+                    System.out.println("Fee: " + user.getFees());
+                    System.out.println("Enter Amount To Pay: ");
                     int pay = validInt();
-                    System.out.println("payment fulfilled");
-                    userDao.updateFee(user.getUserID(), pay);
-                    user.setFees(user.getFees() - pay);
+                    int refundAmount = pay - user.getFees();
+                    int totalAmount = pay - refundAmount;
+                    int leftToPay = user.getFees() - pay;
+
+                    if (user.getFees() < pay) {
+
+                        System.out.println("-----------------------------------------");
+                        System.out.println("Pay Amount Is Too High \nAuto Deducted, Total Amount Payed : " + totalAmount + "\nTotal Amount Paid Refunded : " + refundAmount);
+                        userDao.updateFee(user.getUserID(), -totalAmount);
+                        user.setFees(user.getFees() - totalAmount);
+
+                    } else if (user.getFees() == pay) {
+                        System.out.println("-----------------------------------------");
+                        System.out.println("Payment Fulfilled");
+                        userDao.updateFee(user.getUserID(), -pay);
+                        user.setFees(user.getFees() - pay);
+                    }
+                    else{
+
+                        System.out.println("-----------------------------------------");
+                        System.out.println("Total Fee Deducted From " + user.getFees() + " To " + leftToPay);
+                        System.out.println("Total Amount Payed This Time : " + pay);
+                        System.out.println("Amount Left To Pay : " + leftToPay);
+                        userDao.updateFee(user.getUserID(), - pay);
+                        user.setFees(leftToPay);
+                    }
+
+                } else{
+                    System.out.println("-----------------------------------------");
+                    System.out.println("Invalid Card Details");
                 }
-                else{
-                    System.out.println("invalid card details");
-                }
+                System.out.println("-----------------------------------------");
                 break;
 
             case 8:
@@ -500,16 +538,17 @@ public class Main {
                 break;
 
             case 10:
-                System.out.println("insert a book name: ");
+                sc.nextLine();
+                System.out.println("Insert A Book Name: ");
                 bookName = sc.nextLine();
-                System.out.println("insert author name: ");
+                System.out.println("Insert Author Name: ");
                 author = sc.nextLine();
-                System.out.println("enter description: ");
+                System.out.println("Enter Description: ");
                 desc = sc.nextLine();
-                System.out.println("enter quantity: ");
+                System.out.println("Enter Quantity: ");
                 quantity = validInt();
                 sc.nextLine();
-
+                System.out.println("-----------------------------------------");
                 if(quantity > 0){
                     res = bookDao.addBook(new Book(bookName, author, desc, quantity));
                 }
@@ -518,63 +557,69 @@ public class Main {
                 }
 
                 if(res > 0){
-                    System.out.println("book added");
+                    System.out.println("Book Added");
                     books = bookDao.getAllBooks();
                     addGenreToBook(books.get(books.size() - 1).getBookID());
                 }
                 else{
-                    System.out.println("book failed to add");
+                    System.out.println("Book Failed To Add");
                 }
-
+                System.out.println("-----------------------------------------");
                 break;
 
             case 11:
-                System.out.println("enter a bookID");
+
+                System.out.println("Enter A BookID");
                 bookID = validInt();
                 sc.nextLine();
-                System.out.println("enter quantity to update: ");
+                System.out.println("Enter Quantity To Update (- Or +) : ");
                 quantity = validInt();
                 sc.nextLine();
-
+                System.out.println("-----------------------------------------");
                 res = bookDao.updateBookQuantity(bookID, quantity);
                 if(res > 0){
-                    System.out.println("book quantity changed");
+                    System.out.println("Book Quantity Changed");
                 }
                 else{
-                    System.out.println("book failed change quantity");
+                    System.out.println("Book Failed Change Quantity");
                 }
+                System.out.println("-----------------------------------------");
                 break;
 
             case 12:
-                System.out.println("enter a userID to disable");
+                System.out.println("Enter A UserID To Disable");
                 userID = validInt();
                 sc.nextLine();
 
                 res = userDao.updateUserTypeByID(userID, -1);
+                System.out.println("-----------------------------------------");
                 if(res > 0){
-                    System.out.println("user disabled");
+                    System.out.println("User Disabled");
                 }
                 else{
-                    System.out.println("something went wrong, user failed to disable");
+                    System.out.println("Something Went Wrong, User Failed To Disable");
                 }
+                System.out.println("-----------------------------------------");
                 break;
 
             case 13:
-                System.out.println("enter a userID to enable");
+                System.out.println("Enter A UserID To Enable");
                 userID = validInt();
                 sc.nextLine();
 
                 res = userDao.updateUserTypeByID(userID, 0);
+                System.out.println("-----------------------------------------");
                 if(res > 0){
-                    System.out.println("user enabled");
+                    System.out.println("User Enabled");
                 }
                 else{
-                    System.out.println("something went wrong, user failed to enable");
+                    System.out.println("Something Went Wrong, User Failed To Enable");
                 }
+                System.out.println("-----------------------------------------");
                 break;
 
             default:
-                System.out.println("invalid command");
+                System.out.println("Invalid Command");
                 break;
         }
     }
@@ -591,7 +636,7 @@ public class Main {
             for(Genre g : genres){
                 System.out.println(g);
             }
-            System.out.println("select a genre to add to book (by ID)");
+            System.out.println("Select A Genre To Add To Book (By ID), Enter 0 To Stop Entering Genre");
             int genreID = validInt();
 
             if(genreID <= 0){
@@ -599,7 +644,7 @@ public class Main {
             }
             if(genreDao.getGenreByID(genreID) != null){
                 if(bookGenreDao.addGenreToBook(bookID, genreID) == 1){
-                    System.out.println("genre added");
+                    System.out.println("Genre Added");
                 }
             }
 
