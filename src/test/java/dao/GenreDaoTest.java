@@ -21,6 +21,9 @@ class GenreDaoTest {
         genreDao = new GenreDao("testlibrary");
     }
 
+    /**
+     * check if get all genres is empty or not
+     */
     @Test
     void getAllGenres() {
         List<Genre> genres = genreDao.getAllGenres();
@@ -29,6 +32,9 @@ class GenreDaoTest {
     }
 
 
+    /**
+     * normal get genre by id
+     */
     @Test
     void getGenreByID() {
         int genreID = 1;
@@ -37,6 +43,9 @@ class GenreDaoTest {
         assertEquals(1, genre.getGenreID());
     }
 
+    /**
+     * get genre by id but id does not exist
+     */
     @Test
     void getGenreByIDNoID() {
         int genreID = 100;

@@ -20,12 +20,18 @@ class BookDaoTest {
     }
 
     @Test
+    /**
+     * Check if its empty or not
+     */
     void getAllBooks() {
         List<Book> books = bookDao.getAllBooks();
 
         assertFalse(books.isEmpty());
     }
 
+    /**
+     * Check if is null or not, check if if id 1 is valid or not
+     */
     @Test
     void getBookByID() {
         // Replace '1' with a valid book ID from your test database
@@ -36,6 +42,9 @@ class BookDaoTest {
         assertEquals(bookID, book.getBookID());
     }
 
+    /**
+     * Get Book By Id More than Database
+     */
     @Test
     void getBookByIDMoreThanDatabase() {
         // Replace '1' with a valid book ID from your test database
@@ -45,6 +54,9 @@ class BookDaoTest {
         assertNull(book);
     }
 
+    /**
+     * Update Book quantity by 1 then deleting it afterwards to keep the database clean
+     */
     @Test
     void updateBookQuantity() {
         int bookID = 1;
@@ -56,6 +68,9 @@ class BookDaoTest {
 
     }
 
+    /**
+     * Update book quantity but decrease it more than the database quantity
+     */
     @Test
     void updateBookMoreThanQuantity() {
         int bookID = 1;
@@ -68,6 +83,9 @@ class BookDaoTest {
 
     }
 
+    /**
+     * Normal add book test and delete after wards for the database
+     */
     @Test
     void addBook() {
         Book newBook = new Book(6, "The Book", "Matt", "The only book you will ever need", 5);
@@ -80,6 +98,9 @@ class BookDaoTest {
         bookDao.deleteBook(bookID);
     }
 
+    /**
+     * Negative quantity add book test
+     */
     @Test
     void addBookNegativeQuantity() {
         Book newBook = new Book(6, "The Book", "Matt", "The only book you will ever need", -1000);
@@ -88,6 +109,9 @@ class BookDaoTest {
         assertEquals(0, rowsAffected);
     }
 
+    /**
+     * Normal delete book test, by adding a new book first then delete it then update the increment
+     */
     @Test
     void deleteBook() {
         Book newBook = new Book(6, "How To Solve 100% Of Your Problem In Life", "Matt", "You get jeri discord", 5);
@@ -98,7 +122,9 @@ class BookDaoTest {
        assertEquals(1,rowAffected);
     }
 
-
+    /**
+     * Delete book that does not exist
+     */
     @Test
     void deleteBookThatDoesntExist() {
         int rowAffected = bookDao.deleteBook(100);

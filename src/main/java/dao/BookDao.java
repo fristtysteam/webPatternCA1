@@ -126,6 +126,7 @@ public class BookDao extends Dao implements BookDaoInterface {
     }
 
 
+
 @Override
     public int addBook(Book book) {
         String query = "INSERT INTO books (bookName, author, description, quantity) VALUES (?, ?, ?, ?)";

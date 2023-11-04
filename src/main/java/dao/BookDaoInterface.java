@@ -29,8 +29,20 @@ public interface BookDaoInterface {
      */
     public int updateBookQuantity(int bookID, int increase);
 
+    /**
+     * Add book to the library database.
+     *
+     * @param book the book to update.
+     * @return The number of rows affected by the update.
+     */
     public int addBook (Book book);
 
+    /**
+     * Add book to the library database.
+     *
+     * @param bookID the id of the book to delete.
+     * @return The number of rows affected by the update.
+     */
     public int deleteBook(int bookID);
 
 
